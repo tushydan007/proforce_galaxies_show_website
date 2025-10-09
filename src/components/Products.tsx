@@ -193,6 +193,162 @@ const ProductsPage: React.FC = () => {
       ],
       price: "$399/month",
     },
+    {
+      id: 15,
+      title: "Ecosphere Management Suite",
+      description:
+        "Comprehensive platform for managing and monitoring ecosystems with biodiversity tracking, habitat mapping, and sustainability insights.",
+      features: [
+        "Biodiversity Monitoring",
+        "Habitat Mapping Tools",
+        "Sustainability Metrics",
+        "Environmental Impact Analysis",
+      ],
+      price: "$189/month",
+    },
+    {
+      id: 16,
+      title: "Flood Risk Assessment Tool",
+      description:
+        "Advanced flood modeling and risk analysis platform with real-time data, predictive simulations, and impact mapping.",
+      features: [
+        "Real-Time Flood Monitoring",
+        "Predictive Flood Simulations",
+        "Risk & Impact Mapping",
+        "Early Warning Alerts",
+      ],
+      price: "$219/month",
+    },
+    {
+      id: 17,
+      title: "Urban Growth Analysis Suite",
+      description:
+        "Data-driven platform for analyzing urban expansion with satellite imagery, land use change detection, and growth forecasting tools.",
+      features: [
+        "Satellite Imagery Integration",
+        "Land Use Change Detection",
+        "Urban Expansion Forecasting",
+        "Custom Zoning Analytics",
+      ],
+      price: "$229/month",
+    },
+    {
+      id: 18,
+      title: "Pipeline Monitoring Solution",
+      description:
+        "Comprehensive monitoring system for pipeline infrastructure with leak detection, pressure monitoring, and real-time alerts.",
+      features: [
+        "Leak & Pressure Detection",
+        "Real-Time Pipeline Monitoring",
+        "Automated Alerts & Notifications",
+        "Geospatial Visualization",
+      ],
+      price: "$269/month",
+    },
+    {
+      id: 19,
+      title: "Logistics & Delivery Management System",
+      description:
+        "End-to-end delivery management platform with real-time tracking, automated dispatching, and customer notifications.",
+      features: [
+        "Real-Time Delivery Tracking",
+        "Automated Dispatch & Routing",
+        "Driver & Fleet Management",
+        "Customer Notifications & Proof of Delivery",
+      ],
+      price: "$259/month",
+    },
+    {
+      id: 20,
+      title: "Geofencing Solution",
+      description:
+        "Location-based platform enabling virtual boundaries with real-time alerts, asset tracking, and zone-based automation.",
+      features: [
+        "Custom Geofence Creation",
+        "Real-Time Entry/Exit Alerts",
+        "Asset & Personnel Tracking",
+        "Zone-Based Automation Rules",
+      ],
+      price: "$179/month",
+    },
+    {
+      id: 21,
+      title: "Geospatial Intelligence Solution",
+      description:
+        "Advanced geospatial analytics platform for situational awareness, mission planning, and decision support using satellite and ground data.",
+      features: [
+        "Multi-Source Data Integration",
+        "Real-Time Situational Awareness",
+        "Geospatial Analytics & Insights",
+        "Mission Planning Tools",
+      ],
+      price: "$389/month",
+    },
+    {
+      id: 22,
+      title: "Weather Intelligence Platform",
+      description:
+        "AI-powered weather intelligence system delivering hyperlocal forecasts, severe weather alerts, and climate impact analysis for smarter decisions.",
+      features: [
+        "Hyperlocal & Long-Range Forecasting",
+        "Severe Weather Alerts",
+        "Climate Impact Analysis",
+        "Industry-Specific Weather Insights",
+      ],
+      price: "$199/month",
+    },
+    {
+      id: 23,
+      title: "Environmental Change Detection System",
+      description:
+        "Remote sensing and analytics platform for detecting and monitoring environmental changes such as deforestation, urban sprawl, and land degradation.",
+      features: [
+        "Satellite-Based Change Detection",
+        "Land Cover & Land Use Monitoring",
+        "Time-Series Analysis",
+        "Custom Alert Triggers",
+      ],
+      price: "$219/month",
+    },
+    {
+      id: 24,
+      title: "Integrated Monitoring Solution",
+      description:
+        "Unified monitoring platform combining satellite imagery, drone feeds, CCTV surveillance, and geospatial data for comprehensive situational awareness and decision-making.",
+      features: [
+        "Satellite & Drone Data Integration",
+        "Live CCTV Camera Feeds",
+        "Geospatial Mapping & Analytics",
+        "Real-Time Event Detection & Alerts",
+      ],
+      price: "$449/month",
+    },
+    {
+      id: 25,
+      title: "Geo-Location Real-Time Tracking Platform",
+      description:
+        "High-precision geo-location platform offering real-time tracking, route analytics, and asset monitoring for improved operational efficiency.",
+      features: [
+        "Accurate Real-Time Tracking",
+        "Route Analytics & Optimization",
+        "Multi-Device Support",
+        "Customizable Alerts & Reporting",
+      ],
+      price: "$219/month",
+    },
+    {
+      id: 26,
+      title: "Satellite-Based Real-Time Asset Monitoring",
+      description:
+        "Robust asset monitoring platform leveraging satellite technology for global real-time tracking, status updates, and risk management.",
+      features: [
+        "Global Satellite Tracking",
+        "Real-Time Asset Status Monitoring",
+        "Risk & Anomaly Detection",
+        "Comprehensive Reporting & Alerts",
+      ],
+      price: "$349/month",
+    },
   ];
 
   return (

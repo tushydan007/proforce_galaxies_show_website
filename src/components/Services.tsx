@@ -1,7 +1,7 @@
 import { Globe2, Satellite, Map, Database, ChevronRight } from "lucide-react";
 import AdvancedTerrain3D from "./ThreeDTerrain";
 import toast from "react-hot-toast";
-import DataVisualization3D from "./DataVisualization3D";
+// import DataVisualization3D from "./DataVisualization3D";
 
 const ServicesPage = () => {
   const services = [
@@ -121,9 +121,7 @@ const ServicesPage = () => {
                 Request Consultation
               </button>
             </div>
-            <div className="h-64">
-              <DataVisualization3D />
-            </div>
+            <div className="h-64">{/* <DataVisualization3D /> */}</div>
           </div>
         </div>
       </div>

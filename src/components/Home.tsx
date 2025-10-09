@@ -47,7 +47,7 @@ const HomePage: React.FC = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
               Future
             </span>{" "}
-            of Geospatial
+            of Geospatial Technology
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
             Advanced 3D mapping, satellite imagery, and spatial analysis powered

@@ -17,7 +17,7 @@ const TechnologyPage = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 mb-20">
-          <div className="h-96 rounded-2xl overflow-hidden shadow-2xl">
+          <div className="h-[650px] rounded-2xl overflow-hidden shadow-2xl">
             <DataVisualization3D />
           </div>
           <div className="space-y-6">
