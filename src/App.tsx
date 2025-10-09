@@ -1,57 +1,68 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import Navbar from "./components/Navbar";
-import HeroSection from "./components/Hero";
-import AboutSection from "./components/About";
-import ServicesSection from "./components/Services";
-import ProductsSection from "./components/Products";
-import TechnologySection from "./components/Technology";
-import ContactSection from "./components/Contact";
+
 import Footer from "./components/Footer";
+import HomePage from "./components/Home";
+import AboutPage from "./components/About";
+import ServicesPage from "./components/Services";
+import ProductsPage from "./components/Products";
+import TechnologyPage from "./components/Technology";
+import ContactPage from "./components/Contact";
+import LoadingScreen from "./components/LoadingScreen";
+import ScrollToTop from "./components/ScrollToTop";
+
+type PageType =
+  | "home"
+  | "about"
+  | "services"
+  | "products"
+  | "technology"
+  | "contact";
 
 const App: React.FC = () => {
-  const [activeSection, setActiveSection] = useState("home");
-  const heroRef = useRef<HTMLDivElement>(null);
+  const [currentPage, setCurrentPage] = useState<PageType>("home");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = [
-        "home",
-        "about",
-        "services",
-        "products",
-        "technology",
-        "contact",
-      ];
-      const scrollPosition = window.scrollY + 100;
+    const timer = setTimeout(() => {
+      setLoading(false);
+      toast.success("Welcome to GeoSpatial3D! 🌍", {
+        duration: 3000,
+        position: "top-center",
+        icon: "🚀",
+      });
+    }, 2000);
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    toast.success("Welcome to GeoSpatial! 🌍", {
-      duration: 3000,
-      position: "top-center",
-      icon: "🚀",
-    });
-  }, []);
+  const handleNavigate = (page: PageType) => {
+    setCurrentPage(page);
+  };
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case "home":
+        return <HomePage />;
+      case "about":
+        return <AboutPage />;
+      case "services":
+        return <ServicesPage />;
+      case "products":
+        return <ProductsPage />;
+      case "technology":
+        return <TechnologyPage />;
+      case "contact":
+        return <ContactPage />;
+      default:
+        return <HomePage />;
+    }
+  };
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-900">
@@ -65,14 +76,10 @@ const App: React.FC = () => {
           },
         }}
       />
-      <Navbar activeSection={activeSection} />
-      <HeroSection containerRef={heroRef} />
-      <AboutSection />
-      <ServicesSection />
-      <ProductsSection />
-      <TechnologySection />
-      <ContactSection />
-      <Footer />
+      <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
+      <main className="relative">{renderPage()}</main>
+      <Footer onNavigate={handleNavigate} />
+      <ScrollToTop />
     </div>
   );
 };

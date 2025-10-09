@@ -1,45 +1,110 @@
-import Satellite3D from "./ThreeDSatellite";
+import { Award, Users, Zap } from "lucide-react";
+import SatelliteNetwork3D from "./SatelliteNetwork3D";
 
-const AboutSection = () => {
+const AboutPage = () => {
   return (
-    <section
-      id="about"
-      className="relative min-h-screen flex items-center justify-center bg-slate-900 py-20 overflow-hidden"
-    >
-      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1/3 h-96 opacity-50">
-        <Satellite3D />
-      </div>
-      <div className="relative z-10 max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            About <span className="text-cyan-400">GeoSpatial</span>
-          </h2>
-          <p className="text-lg text-gray-300 mb-6">
-            We are pioneers in 3D geospatial technology, providing innovative
-            solutions for mapping, surveying, and spatial analysis. Our
-            cutting-edge tools help businesses and organizations visualize and
-            understand geographic data like never before.
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-blue-900 pt-20">
+      <div className="max-w-7xl mx-auto px-4 py-20">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+            About <span className="text-cyan-400">Proforce Galaxies</span>
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Pioneering the future of geospatial technology with innovative 3D
+            solutions
           </p>
-          <p className="text-lg text-gray-300 mb-8">
-            With years of expertise in satellite imagery, LiDAR scanning, and 3D
-            modeling, we transform raw data into actionable insights that drive
-            decision-making across industries.
-          </p>
-          <div className="grid grid-cols-2 gap-6">
-            <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg border border-cyan-500/20">
-              <h3 className="text-3xl font-bold text-cyan-400 mb-2">500+</h3>
-              <p className="text-gray-300">Projects Completed</p>
-            </div>
-            <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg border border-cyan-500/20">
-              <h3 className="text-3xl font-bold text-cyan-400 mb-2">50+</h3>
-              <p className="text-gray-300">Countries Served</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-12 mb-20">
+          <div className="space-y-6">
+            <h2 className="text-3xl font-bold text-white">Our Story</h2>
+            <p className="text-gray-300 text-lg leading-relaxed">
+              Founded in 2015, Proforce Galaxies emerged from a vision to
+              revolutionize how we understand and interact with geographic data.
+              Our team of expert cartographers, data scientists, and software
+              engineers came together with a shared passion for pushing the
+              boundaries of spatial technology.
+            </p>
+            <p className="text-gray-300 text-lg leading-relaxed">
+              Today, we're proud to serve clients across 50+ countries,
+              delivering cutting-edge 3D mapping solutions that transform raw
+              data into actionable insights. From urban planning to
+              environmental conservation, our technology is making a real-world
+              impact.
+            </p>
+            <div className="grid grid-cols-2 gap-4 pt-6">
+              <div className="bg-slate-800/50 p-6 rounded-lg border border-cyan-500/20">
+                <Award className="w-8 h-8 text-cyan-400 mb-3" />
+                <h3 className="text-2xl font-bold text-white mb-1">50+</h3>
+                <p className="text-gray-400">Industry Awards</p>
+              </div>
+              <div className="bg-slate-800/50 p-6 rounded-lg border border-cyan-500/20">
+                <Users className="w-8 h-8 text-cyan-400 mb-3" />
+                <h3 className="text-2xl font-bold text-white mb-1">200+</h3>
+                <p className="text-gray-400">Team Members</p>
+              </div>
             </div>
           </div>
+          <div className="h-96 rounded-xl overflow-hidden shadow-2xl">
+            <SatelliteNetwork3D />
+          </div>
         </div>
-        <div className="hidden md:block"></div>
+
+        <div className="mb-20">
+          <h2 className="text-3xl font-bold text-white text-center mb-12">
+            Our Values
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Zap className="w-12 h-12 text-cyan-400" />,
+                title: "Innovation",
+                description:
+                  "Constantly pushing boundaries with cutting-edge technology and creative solutions.",
+              },
+              {
+                icon: <Award className="w-12 h-12 text-cyan-400" />,
+                title: "Excellence",
+                description:
+                  "Committed to delivering the highest quality in every project we undertake.",
+              },
+              {
+                icon: <Users className="w-12 h-12 text-cyan-400" />,
+                title: "Collaboration",
+                description:
+                  "Working closely with clients to understand and exceed their expectations.",
+              },
+            ].map((value, index) => (
+              <div
+                key={index}
+                className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-cyan-500/20 hover:border-cyan-500/60 transition-all hover:transform hover:scale-105"
+              >
+                <div className="mb-4">{value.icon}</div>
+                <h3 className="text-xl font-bold text-white mb-3">
+                  {value.title}
+                </h3>
+                <p className="text-gray-300">{value.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl p-12 border border-cyan-500/20">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Join Our Journey
+            </h2>
+            <p className="text-gray-300 text-lg mb-8">
+              We're always looking for talented individuals to join our team
+            </p>
+            <button className="px-8 py-4 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105">
+              View Open Positions
+            </button>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default AboutSection;
+export default AboutPage;

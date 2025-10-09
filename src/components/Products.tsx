@@ -1,98 +1,179 @@
-import { toast } from "react-toastify";
+import { Globe2, Satellite, Map, ChevronRight } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface Product {
   id: number;
   title: string;
   description: string;
-  image: string;
-  category: string;
+  features: string[];
+  price: string;
 }
 
-const ProductsSection: React.FC = () => {
+const ProductsPage: React.FC = () => {
   const products: Product[] = [
     {
       id: 1,
       title: "GeoMapper Pro",
       description:
-        "Professional-grade 3D mapping software with advanced analytics.",
-      image:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
-      category: "Software",
+        "Professional-grade 3D mapping software with advanced analytics and visualization capabilities.",
+      features: [
+        "Real-time 3D Rendering",
+        "Multi-source Data Integration",
+        "Advanced Analytics Dashboard",
+        "Collaboration Tools",
+      ],
+      price: "$299/month",
     },
     {
       id: 2,
       title: "SatView Elite",
       description:
-        "Real-time satellite imagery platform with AI-powered insights.",
-      image:
-        "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=400&h=300&fit=crop",
-      category: "Platform",
+        "Real-time satellite imagery platform with AI-powered insights and automated change detection.",
+      features: [
+        "Live Satellite Feeds",
+        "AI Object Detection",
+        "Automated Reporting",
+        "API Access",
+      ],
+      price: "$499/month",
     },
     {
       id: 3,
       title: "LiDAR Scanner X1",
       description:
-        "Portable high-precision LiDAR scanner for field operations.",
-      image:
-        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop",
-      category: "Hardware",
+        "Portable high-precision LiDAR scanner for field operations and rapid data collection.",
+      features: [
+        "360° Scanning",
+        "Sub-centimeter Accuracy",
+        "Cloud Sync",
+        "Battery: 8 Hours",
+      ],
+      price: "$15,999",
     },
     {
       id: 4,
       title: "Terrain Analyzer",
       description:
-        "Advanced terrain analysis tool for construction and mining.",
-      image:
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
-      category: "Software",
+        "Advanced terrain analysis tool for construction, mining, and environmental assessment.",
+      features: [
+        "Volumetric Analysis",
+        "Slope & Aspect Mapping",
+        "3D Visualization",
+        "Export to CAD",
+      ],
+      price: "$199/month",
+    },
+    {
+      id: 5,
+      title: "GIS Cloud Suite",
+      description:
+        "Cloud-based GIS platform with unlimited storage and processing power for enterprise needs.",
+      features: [
+        "Unlimited Storage",
+        "Team Collaboration",
+        "Custom Workflows",
+        "Priority Support",
+      ],
+      price: "$799/month",
+    },
+    {
+      id: 6,
+      title: "Mobile Survey Kit",
+      description:
+        "Complete mobile surveying solution with GPS, camera integration, and offline capabilities.",
+      features: [
+        "Offline Mode",
+        "GPS Integration",
+        "Photo Geotagging",
+        "Field Forms",
+      ],
+      price: "$149/month",
     },
   ];
 
   return (
-    <section id="products" className="relative min-h-screen bg-slate-900 py-20">
-      <div className="max-w-6xl mx-auto px-4">
+    <div className="min-h-screen bg-gradient-to-b from-blue-900 to-slate-900 pt-20">
+      <div className="max-w-7xl mx-auto px-4 py-20">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
             Our <span className="text-cyan-400">Products</span>
-          </h2>
-          <p className="text-xl text-gray-300">
-            Industry-leading geospatial solutions
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Industry-leading geospatial tools and platforms designed for
+            professionals
           </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
             <div
               key={product.id}
-              className="group relative bg-slate-800 rounded-xl overflow-hidden transform hover:scale-105 transition-all duration-300 cursor-pointer hover:shadow-2xl hover:shadow-cyan-500/30"
-              onClick={() =>
-                toast.success(`Viewing ${product.title}`, {
-                  position: "top-center",
-                })
-              }
+              className="group bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-cyan-500/20 hover:border-cyan-500/60 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/30"
             >
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
+              <div className="h-48 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 relative overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  {product.id % 3 === 0 ? (
+                    <Globe2 className="w-24 h-24 text-cyan-400 opacity-50" />
+                  ) : product.id % 3 === 1 ? (
+                    <Satellite className="w-24 h-24 text-cyan-400 opacity-50" />
+                  ) : (
+                    <Map className="w-24 h-24 text-cyan-400 opacity-50" />
+                  )}
+                </div>
               </div>
               <div className="p-6">
-                <div className="inline-block px-3 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-semibold rounded-full mb-3">
-                  {product.category}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
                   {product.title}
                 </h3>
-                <p className="text-gray-400 text-sm">{product.description}</p>
+                <p className="text-gray-400 mb-4">{product.description}</p>
+                <div className="space-y-2 mb-6">
+                  {product.features.map((feature, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center space-x-2 text-gray-400 text-sm"
+                    >
+                      <ChevronRight className="w-4 h-4 text-cyan-400" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between pt-4 border-t border-slate-700">
+                  <span className="text-2xl font-bold text-cyan-400">
+                    {product.price}
+                  </span>
+                  <button
+                    onClick={() =>
+                      toast.success(`Added ${product.title} to cart`, {
+                        position: "bottom-center",
+                      })
+                    }
+                    className="px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg transition-all duration-300"
+                  >
+                    Get Started
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
+
+        <div className="mt-20 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl p-12 border border-cyan-500/20">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Enterprise Solutions
+            </h2>
+            <p className="text-gray-300 text-lg mb-8">
+              Need custom pricing for your organization? Contact our sales team
+              for enterprise packages.
+            </p>
+            <button className="px-8 py-4 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105">
+              Contact Sales
+            </button>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default ProductsSection;
+export default ProductsPage;
