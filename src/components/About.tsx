@@ -3,7 +3,7 @@ import SatelliteNetwork3D from "./SatelliteNetwork3D";
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-blue-900 pt-20">
+    <div className="min-h-screen bg-[#0F172B] pt-20">
       <div className="max-w-7xl mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
@@ -15,7 +15,7 @@ const AboutPage = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 mb-20">
+        <div className="grid md:grid-cols-2 gap-32 mb-20">
           <div className="space-y-6">
             <h2 className="text-3xl font-bold text-white">Our Story</h2>
             <p className="text-gray-300 text-lg leading-relaxed">
@@ -45,7 +45,7 @@ const AboutPage = () => {
               </div>
             </div>
           </div>
-          <div className="h-96 rounded-xl overflow-hidden shadow-2xl">
+          <div className="h-96 rounded-xl overflow-hidden shadow-2xl border border-cyan-500/20">
             <SatelliteNetwork3D />
           </div>
         </div>
