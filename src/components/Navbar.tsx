@@ -1,6 +1,5 @@
 import { Globe2, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
 type PageType =
   | "home"
@@ -41,13 +40,13 @@ const Navbar = ({
     onNavigate(page);
     setIsOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    toast.success(
-      `Welcome to ${page.charAt(0).toUpperCase() + page.slice(1)}`,
-      {
-        duration: 2000,
-        position: "top-right",
-      }
-    );
+    // toast.success(
+    //   `Welcome to ${page.charAt(0).toUpperCase() + page.slice(1)}`,
+    //   {
+    //     duration: 2000,
+    //     position: "top-right",
+    //   }
+    // );
   };
 
   return (
@@ -75,7 +74,7 @@ const Navbar = ({
               <button
                 key={link.name}
                 onClick={() => handleNavClick(link.page)}
-                className={`text-sm font-medium transition-all duration-300 relative ${
+                className={`text-sm font-medium transition-all duration-300 relative cursor-pointer ${
                   currentPage === link.page
                     ? "text-cyan-400"
                     : "text-gray-300 hover:text-white"

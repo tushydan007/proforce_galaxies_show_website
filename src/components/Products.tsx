@@ -89,6 +89,110 @@ const ProductsPage: React.FC = () => {
       ],
       price: "$149/month",
     },
+    {
+      id: 7,
+      title: "Defense & Security Suite",
+      description:
+        "Advanced defense and surveillance platform with real-time threat detection, encrypted communications, and tactical coordination tools.",
+      features: [
+        "Real-Time Threat Alerts",
+        "Encrypted Communication",
+        "Surveillance Integration",
+        "Tactical Coordination Dashboard",
+      ],
+      price: "$499/month",
+    },
+    {
+      id: 8,
+      title: "Smart Agriculture Toolkit",
+      description:
+        "Comprehensive agricultural management system with crop monitoring, weather integration, and smart irrigation support.",
+      features: [
+        "Crop Health Monitoring",
+        "Weather Forecast Integration",
+        "Smart Irrigation Controls",
+        "Soil Analysis Tools",
+      ],
+      price: "$129/month",
+    },
+    {
+      id: 9,
+      title: "Urban Planning Suite",
+      description:
+        "Integrated urban development platform with zoning tools, infrastructure mapping, and stakeholder collaboration features.",
+      features: [
+        "Zoning & Land Use Tools",
+        "Infrastructure Mapping",
+        "3D City Modeling",
+        "Stakeholder Collaboration",
+      ],
+      price: "$199/month",
+    },
+    {
+      id: 10,
+      title: "Environmental Monitoring System",
+      description:
+        "Real-time environmental monitoring platform with air and water quality sensors, data visualization, and alert systems.",
+      features: [
+        "Air & Water Quality Sensors",
+        "Real-Time Data Visualization",
+        "Automated Alerts & Thresholds",
+        "Historical Data Analysis",
+      ],
+      price: "$179/month",
+    },
+    {
+      id: 11,
+      title: "Transport & Logistics Manager",
+      description:
+        "End-to-end transportation and logistics platform with fleet tracking, route optimization, and delivery management.",
+      features: [
+        "Real-Time Fleet Tracking",
+        "Route Optimization",
+        "Delivery Scheduling & Tracking",
+        "Inventory & Warehouse Integration",
+      ],
+      price: "$249/month",
+    },
+    {
+      id: 12,
+      title: "Energy & Utilities Platform",
+      description:
+        "Smart management system for energy and utility services with grid monitoring, consumption analytics, and outage detection.",
+      features: [
+        "Smart Grid Monitoring",
+        "Energy Consumption Analytics",
+        "Outage Detection & Alerts",
+        "Renewable Integration Support",
+      ],
+      price: "$299/month",
+    },
+    {
+      id: 13,
+      title: "Weather Intelligence Suite",
+      description:
+        "Advanced weather data and forecasting platform with hyperlocal insights, alert systems, and decision support tools.",
+      features: [
+        "Hyperlocal Weather Forecasts",
+        "Severe Weather Alerts",
+        "Historical Weather Data",
+        "Decision Support Analytics",
+      ],
+      price: "$159/month",
+    },
+    {
+      id: 14,
+      title: "Digital Twin Platform",
+      description:
+        "High-fidelity digital twin solution for real-time simulation, asset monitoring, and predictive maintenance across physical systems.",
+      features: [
+        "Real-Time System Simulation",
+        "3D Asset Visualization",
+        "Predictive Maintenance",
+        "Data Integration & Sync",
+      ],
+      price: "$399/month",
+    },
   ];
 
   return (
@@ -108,7 +212,7 @@ const ProductsPage: React.FC = () => {
           {products.map((product) => (
             <div
               key={product.id}
-              className="group bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-cyan-500/20 hover:border-cyan-500/60 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/30"
+              className="group bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-cyan-500/20 hover:border-cyan-500/60 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/30 cursor-pointer"
             >
               <div className="h-48 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 relative overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
