@@ -54,9 +54,9 @@ const HomePage = () => {
   });
 
   return (
-    <div className="min-h-screen bg-slate-950 overflow-hidden">
+    <div className="min-h-screen bg-[#0F172B] overflow-hidden">
       {/* Animated Background with Ambient Effects */}
-      <div className="fixed inset-0 z-0">
+      {/* <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-blue-900/50 to-slate-950" />
         <div
           className="absolute inset-0 opacity-30"
@@ -71,7 +71,7 @@ const HomePage = () => {
         <div className="absolute inset-0" style={scrollParallax(-0.1)}>
           <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.05)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_70%,transparent_110%)]" />
         </div>
-      </div>
+      </div> */}
 
       {/* Hero Section */}
       <section className="relative z-10 min-h-screen flex items-center justify-center px-4 pt-20">

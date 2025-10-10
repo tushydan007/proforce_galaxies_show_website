@@ -1,4 +1,4 @@
-import { Globe2, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type PageType =
@@ -56,10 +56,11 @@ const Navbar = ({
             className="flex items-center space-x-2 cursor-pointer"
             onClick={() => handleNavClick("home")}
           >
-            <Globe2 className="w-8 h-8 text-cyan-400" />
-            <span className="text-xl font-bold text-white">
-              Proforce<span className="text-cyan-400"> Galaxies</span>
-            </span>
+            <img
+              src="/logo.webp"
+              alt="Logo"
+              className="object-cover w-40 h-auto"
+            />
           </div>
 
           <div className="hidden md:flex space-x-8">

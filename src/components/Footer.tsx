@@ -1,7 +1,6 @@
 import {
   ChevronRight,
   Facebook,
-  Globe2,
   Instagram,
   Linkedin,
   Twitter,
@@ -36,10 +35,11 @@ const Footer = ({ onNavigate }: { onNavigate: (page: PageType) => void }) => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <Globe2 className="w-8 h-8 text-cyan-400" />
-              <span className="text-xl font-bold text-white">
-                Proforce<span className="text-cyan-400"> Galaxies</span>
-              </span>
+              <img
+                src="/logo.webp"
+                alt="Logo"
+                className="object-cover w-40 h-auto"
+              />
             </div>
             <p className="text-gray-400 text-sm mb-4">
               Leading the way in 3D geospatial technology and innovation.
