@@ -57,7 +57,7 @@ const ServicesPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 pt-20">
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-[1500px] mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
             Our <span className="text-cyan-400">Services</span>
@@ -67,7 +67,7 @@ const ServicesPage = () => {
           </p>
         </div>
 
-        <div className="mb-16 h-96 rounded-2xl overflow-hidden shadow-2xl">
+        <div className="mb-16 h-96 rounded-2xl overflow-hidden shadow-2xl border border-cyan-500/20">
           <AdvancedTerrain3D />
         </div>
 

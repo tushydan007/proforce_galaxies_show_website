@@ -1,4 +1,11 @@
-import { ChevronRight, Globe2 } from "lucide-react";
+import {
+  ChevronRight,
+  Facebook,
+  Globe2,
+  Instagram,
+  Linkedin,
+  Twitter,
+} from "lucide-react";
 import toast from "react-hot-toast";
 
 type PageType =
@@ -10,9 +17,22 @@ type PageType =
   | "contact";
 
 const Footer = ({ onNavigate }: { onNavigate: (page: PageType) => void }) => {
+  const socialIcons = {
+    X: Twitter,
+    Facebook: Facebook,
+    Instagram: Instagram,
+    Linkedin: Linkedin,
+  };
+
+  const socialLinks = {
+    X: "https://twitter.com/Proforcedefence",
+    Facebook: "https://www.facebook.com/proforceofficial/",
+    Instagram: "https://www.instagram.com/proforcedefence/",
+    Linkedin: "https://www.linkedin.com/company/proforcelimited",
+  };
   return (
     <footer className="bg-slate-950 border-t border-slate-800 py-12">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-[1500px] mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
@@ -26,14 +46,30 @@ const Footer = ({ onNavigate }: { onNavigate: (page: PageType) => void }) => {
               Transforming how the world understands space.
             </p>
             <div className="flex space-x-3">
-              {["T", "L", "G", "Y"].map((letter, idx) => (
-                <button
-                  key={idx}
-                  className="w-8 h-8 bg-slate-800 hover:bg-cyan-500 rounded-lg flex items-center justify-center transition-all duration-300 text-gray-400 hover:text-white"
-                >
-                  {letter}
-                </button>
-              ))}
+              <div className="flex space-x-4">
+                {(
+                  [
+                    "X",
+                    "Facebook",
+                    "Instagram",
+                    "Linkedin",
+                  ] as (keyof typeof socialIcons)[]
+                ).map((social) => {
+                  const Icon = socialIcons[social];
+                  const link = socialLinks[social];
+                  return (
+                    <a
+                      key={social}
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 bg-slate-700 hover:bg-cyan-500 rounded-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+                    >
+                      <Icon className="w-4 h-4 text-white" />
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
 

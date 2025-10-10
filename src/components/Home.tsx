@@ -75,7 +75,10 @@ const HomePage = () => {
 
       {/* Hero Section */}
       <section className="relative z-10 min-h-screen flex items-center justify-center px-4 pt-20">
-        <div className="max-w-7xl mx-auto text-center" style={parallaxStyle}>
+        <div
+          className="max-w-[1500px] mx-auto text-center"
+          style={parallaxStyle}
+        >
           <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full backdrop-blur-sm">
             <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
             <span className="text-cyan-400 text-sm font-medium">
@@ -170,7 +173,7 @@ const HomePage = () => {
 
       {/* Core Capabilities Section */}
       <section className="relative z-10 py-32 px-4 bg-gradient-to-b from-transparent via-slate-900/50 to-transparent">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1500px] mx-auto">
           <div className="text-center mb-20" style={scrollParallax(-0.05)}>
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Powerful{" "}
@@ -288,7 +291,7 @@ const HomePage = () => {
 
       {/* Use Cases Section */}
       <section className="relative z-10 py-32 px-4 bg-slate-900/50">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1500px] mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Trusted Across{" "}

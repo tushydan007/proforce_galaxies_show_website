@@ -5,7 +5,7 @@ import SatelliteNetwork3D from "./SatelliteNetwork3D";
 const TechnologyPage = () => {
   return (
     <div className="min-h-screen bg-slate-900 pt-20">
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-[1500px] mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
             Our <span className="text-cyan-400">Technology</span>
@@ -17,7 +17,7 @@ const TechnologyPage = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 mb-20">
-          <div className="h-[650px] rounded-2xl overflow-hidden shadow-2xl">
+          <div className="h-[650px] rounded-2xl overflow-hidden shadow-2xl w-full border border-cyan-500/20">
             <DataVisualization3D />
           </div>
           <div className="space-y-6">

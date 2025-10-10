@@ -4,7 +4,7 @@ import SatelliteNetwork3D from "./SatelliteNetwork3D";
 const AboutPage = () => {
   return (
     <div className="min-h-screen bg-[#0F172B] pt-20">
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-[1500px] mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
             About <span className="text-cyan-400">Proforce Galaxies</span>
