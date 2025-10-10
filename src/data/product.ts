@@ -10,21 +10,6 @@ export interface Product {
 
 export const products: Product[] = [
   {
-    id: 1,
-    title: "GeoMapper Pro",
-    description:
-      "Professional-grade 3D mapping software with advanced analytics and visualization capabilities.",
-    features: [
-      "Real-time 3D Rendering",
-      "Multi-source Data Integration",
-      "Advanced Analytics Dashboard",
-      "Collaboration Tools",
-    ],
-    price: "$299/month",
-    category: "Real estate",
-    imageUrl: "https://source.unsplash.com/400x250/?3d,mapping,geospatial",
-  },
-  {
     id: 2,
     title: "SatView Elite",
     description:
@@ -52,7 +37,7 @@ export const products: Product[] = [
     ],
     price: "$15,999",
     category: "Infrastructure",
-    imageUrl: "https://source.unsplash.com/400x250/?lidar,scanner,technology",
+    imageUrl: "/lidar.png",
   },
   {
     id: 4,
@@ -67,38 +52,9 @@ export const products: Product[] = [
     ],
     price: "$199/month",
     category: "Infrastructure",
-    imageUrl: "https://source.unsplash.com/400x250/?terrain,analysis,landscape",
+    imageUrl: "/terrain-analyser.png",
   },
-  {
-    id: 5,
-    title: "GIS Cloud Suite",
-    description:
-      "Cloud-based GIS platform with unlimited storage and processing power for enterprise needs.",
-    features: [
-      "Unlimited Storage",
-      "Team Collaboration",
-      "Custom Workflows",
-      "Priority Support",
-    ],
-    price: "$799/month",
-    category: "Urban planning",
-    imageUrl: "https://source.unsplash.com/400x250/?gis,cloud,mapping",
-  },
-  {
-    id: 6,
-    title: "Mobile Survey Kit",
-    description:
-      "Complete mobile surveying solution with GPS, camera integration, and offline capabilities.",
-    features: [
-      "Offline Mode",
-      "GPS Integration",
-      "Photo Geotagging",
-      "Field Forms",
-    ],
-    price: "$149/month",
-    category: "Real estate",
-    imageUrl: "https://source.unsplash.com/400x250/?mobile,survey,gps",
-  },
+
   {
     id: 7,
     title: "Defense & Security Suite",
@@ -157,7 +113,7 @@ export const products: Product[] = [
     ],
     price: "$179/month",
     category: "Environmental",
-    imageUrl: "https://source.unsplash.com/400x250/?environment,monitoring,air",
+    imageUrl: "/env-monitor.png",
   },
   {
     id: 11,
@@ -172,7 +128,7 @@ export const products: Product[] = [
     ],
     price: "$249/month",
     category: "Transportation",
-    imageUrl: "https://source.unsplash.com/400x250/?transport,logistics,fleet",
+    imageUrl: "/transport-manager.png",
   },
   {
     id: 12,
@@ -187,7 +143,7 @@ export const products: Product[] = [
     ],
     price: "$299/month",
     category: "Energy",
-    imageUrl: "https://source.unsplash.com/400x250/?energy,utilities,grid",
+    imageUrl: "/energy.png",
   },
   {
     id: 13,
@@ -202,7 +158,7 @@ export const products: Product[] = [
     ],
     price: "$159/month",
     category: "Disaster management",
-    imageUrl: "https://source.unsplash.com/400x250/?weather,forecast,storm",
+    imageUrl: "/weather-intelligence.png",
   },
   {
     id: 14,
@@ -217,7 +173,7 @@ export const products: Product[] = [
     ],
     price: "$399/month",
     category: "Infrastructure",
-    imageUrl: "https://source.unsplash.com/400x250/?digital,twin,simulation",
+    imageUrl: "/digital-twin.png",
   },
   {
     id: 15,
@@ -232,8 +188,7 @@ export const products: Product[] = [
     ],
     price: "$189/month",
     category: "Environmental",
-    imageUrl:
-      "https://source.unsplash.com/400x250/?ecosystem,biodiversity,forest",
+    imageUrl: "/ecosphere-management.png",
   },
   {
     id: 16,
