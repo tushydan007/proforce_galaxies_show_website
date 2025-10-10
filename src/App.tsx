@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import Navbar from "./components/Navbar";
 
 import Footer from "./components/Footer";
@@ -27,11 +27,6 @@ const App: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-      toast.success("Welcome to GeoSpatial3D! 🌍", {
-        duration: 3000,
-        position: "top-center",
-        icon: "🚀",
-      });
     }, 2000);
 
     return () => clearTimeout(timer);

@@ -40,13 +40,6 @@ const Navbar = ({
     onNavigate(page);
     setIsOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    // toast.success(
-    //   `Welcome to ${page.charAt(0).toUpperCase() + page.slice(1)}`,
-    //   {
-    //     duration: 2000,
-    //     position: "top-right",
-    //   }
-    // );
   };
 
   return (
