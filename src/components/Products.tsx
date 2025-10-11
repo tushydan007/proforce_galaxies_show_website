@@ -50,7 +50,7 @@ const ProductsPage = () => {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-6 py-3 rounded-full font-semibold transition-all ${
+              className={`px-6 py-3 rounded-full font-semibold transition-all cursor-pointer ${
                 selectedCategory === cat
                   ? "bg-cyan-500 text-white"
                   : "bg-slate-800/50 text-gray-300 hover:bg-slate-700"
@@ -65,7 +65,7 @@ const ProductsPage = () => {
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="group bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-cyan-500/20 hover:border-cyan-500/60 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/30 cursor-pointer"
+              className="group bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-cyan-500/20 hover:border-cyan-500/60 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/30"
             >
               <div className="h-48 relative overflow-hidden">
                 <img
@@ -103,7 +103,7 @@ const ProductsPage = () => {
                         position: "bottom-center",
                       })
                     }
-                    className="px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg transition-all duration-300"
+                    className="cursor-pointer px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg transition-all duration-300"
                   >
                     Get Started
                   </button>
