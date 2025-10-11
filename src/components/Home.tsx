@@ -105,11 +105,11 @@ const HomePage = () => {
           </p>
 
           <div className="flex flex-wrap gap-6 justify-center mb-16">
-            <button className="group px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-cyan-500/50 flex items-center space-x-3">
+            <button className="group cursor-pointer px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-cyan-500/50 flex items-center space-x-3">
               <span className="text-lg">Start Free Trial</span>
               <ChevronRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
             </button>
-            <button className="group px-10 py-5 bg-slate-800/50 border-2 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400 font-semibold rounded-full transition-all duration-300 transform hover:scale-105 backdrop-blur-sm flex items-center space-x-3">
+            <button className="group cursor-pointer px-10 py-5 bg-slate-800/50 border-2 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400 font-semibold rounded-full transition-all duration-300 transform hover:scale-105 backdrop-blur-sm flex items-center space-x-3">
               <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
               <span className="text-lg">Watch Demo</span>
             </button>
@@ -387,11 +387,11 @@ const HomePage = () => {
                 your free 30-day trial today—no credit card required.
               </p>
               <div className="flex flex-wrap gap-6 justify-center">
-                <button className="group px-12 py-6 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white text-lg font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-cyan-500/50 flex items-center space-x-3">
+                <button className="group cursor-pointer px-12 py-6 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white text-lg font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-cyan-500/50 flex items-center space-x-3">
                   <span>Start Free Trial</span>
                   <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
                 </button>
-                <button className="px-12 py-6 bg-slate-800/50 border-2 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 text-lg font-semibold rounded-full transition-all duration-300 backdrop-blur-sm">
+                <button className="px-12 py-6 cursor-pointer bg-slate-800/50 border-2 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 text-lg font-semibold rounded-full transition-all duration-300 backdrop-blur-sm">
                   Contact Sales
                 </button>
               </div>
