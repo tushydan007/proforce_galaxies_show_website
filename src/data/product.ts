@@ -10,38 +10,38 @@ export interface Product {
 }
 
 export const products: Product[] = [
-  {
-    id: 1,
-    title: "SatView Elite",
-    description:
-      "Real-time satellite imagery platform with AI-powered insights and automated change detection.",
-    features: [
-      "Live Satellite Feeds",
-      "AI Object Detection",
-      "Automated Reporting",
-      "API Access",
-    ],
-    price: "$499/month",
-    category: "Environmental",
-    imageUrl: "/satview.jpg",
-    codeName: "PF-EagleEye",
-  },
-  {
-    id: 2,
-    title: "LiDAR Scanner X1",
-    description:
-      "Portable high-precision LiDAR scanner for field operations and rapid data collection.",
-    features: [
-      "360° Scanning",
-      "Sub-centimeter Accuracy",
-      "Cloud Sync",
-      "Battery: 8 Hours",
-    ],
-    price: "$15,999",
-    category: "Infrastructure",
-    imageUrl: "/lidar.png",
-    codeName: "PF-TerraScan",
-  },
+  // {
+  //   id: 1,
+  //   title: "SatView Elite",
+  //   description:
+  //     "Real-time satellite imagery platform with AI-powered insights and automated change detection.",
+  //   features: [
+  //     "Live Satellite Feeds",
+  //     "AI Object Detection",
+  //     "Automated Reporting",
+  //     "API Access",
+  //   ],
+  //   price: "$499/month",
+  //   category: "Environmental",
+  //   imageUrl: "/satview.jpg",
+  //   codeName: "PF-EagleEye",
+  // },
+  // {
+  //   id: 2,
+  //   title: "LiDAR Scanner X1",
+  //   description:
+  //     "Portable high-precision LiDAR scanner for field operations and rapid data collection.",
+  //   features: [
+  //     "360° Scanning",
+  //     "Sub-centimeter Accuracy",
+  //     "Cloud Sync",
+  //     "Battery: 8 Hours",
+  //   ],
+  //   price: "$15,999",
+  //   category: "Infrastructure",
+  //   imageUrl: "/lidar.png",
+  //   codeName: "PF-TerraScan",
+  // },
   {
     id: 3,
     title: "Terrain Analyzer",
