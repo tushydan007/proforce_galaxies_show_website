@@ -104,7 +104,7 @@ export const products: Product[] = [
     ],
     price: "$199/month",
     category: "Urban planning",
-    imageUrl: "/urban-planning.jpg",
+    imageUrl: "/urban-planning.png",
     codeName: "PF-CityScape",
   },
   {

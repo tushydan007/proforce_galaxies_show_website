@@ -12,6 +12,7 @@ const categories = [
   "Urban planning",
   "Infrastructure",
   "Disaster management",
+  "Oil & Gas",
 ];
 
 const ProductsPage = () => {
@@ -65,7 +66,7 @@ const ProductsPage = () => {
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="group bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-cyan-500/20 hover:border-cyan-500/60 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/30"
+              className="groupbg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-cyan-500/20 hover:border-cyan-500/60 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/30"
             >
               <div className="h-48 relative overflow-hidden">
                 <img
