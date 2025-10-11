@@ -10,22 +10,22 @@ export interface Product {
 }
 
 export const products: Product[] = [
-  // {
-  //   id: 1,
-  //   title: "SatView Elite",
-  //   description:
-  //     "Real-time satellite imagery platform with AI-powered insights and automated change detection.",
-  //   features: [
-  //     "Live Satellite Feeds",
-  //     "AI Object Detection",
-  //     "Automated Reporting",
-  //     "API Access",
-  //   ],
-  //   price: "$499/month",
-  //   category: "Environmental",
-  //   imageUrl: "/satview.jpg",
-  //   codeName: "PF-EagleEye",
-  // },
+  {
+    id: 1,
+    title: "Border Surveillance System",
+    description:
+      "Comprehensive border security and monitoring platform integrating satellite imagery, ground sensors, drones, and AI-powered analytics for real-time situational awareness and threat detection.",
+    features: [
+      "Satellite & Drone Surveillance Integration",
+      "AI-Powered Intrusion Detection",
+      "Thermal & Motion Sensor Support",
+      "Command & Control Dashboard",
+    ],
+    price: "$479/month",
+    category: "Defense & Security",
+    imageUrl: "/border.png",
+    codeName: "PF-BorderGuard",
+  },
   // {
   //   id: 2,
   //   title: "LiDAR Scanner X1",
