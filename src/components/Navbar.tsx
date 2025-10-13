@@ -1,5 +1,6 @@
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import RotatingLogo from "./AnimatedLogo";
 
 type PageType =
   | "home"
@@ -56,11 +57,12 @@ const Navbar = ({
             className="flex items-center space-x-2 cursor-pointer"
             onClick={() => handleNavClick("home")}
           >
-            <img
+            {/* <img
               src="/logo.webp"
               alt="Logo"
               className="object-cover w-40 h-auto"
-            />
+            /> */}
+            <RotatingLogo />
           </div>
 
           <div className="hidden md:flex space-x-8">
