@@ -16,10 +16,20 @@ import {
   CheckCircle2,
   Play,
 } from "lucide-react";
+import LoadingScreen from "./LoadingScreen";
 
 const HomePage = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -52,6 +62,10 @@ const HomePage = () => {
   const scrollParallax = (speed: number) => ({
     transform: `translateY(${scrollY * speed}px)`,
   });
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="min-h-screen bg-[#0F172B] overflow-hidden">

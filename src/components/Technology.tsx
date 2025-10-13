@@ -1,8 +1,23 @@
 import { Award, Database, Globe2, Layers, Sparkles, Zap } from "lucide-react";
 import DataVisualization3D from "./DataVisualization3D";
 import SatelliteNetwork3D from "./SatelliteNetwork3D";
+import LoadingScreen from "./LoadingScreen";
+import { useEffect, useState } from "react";
 
 const TechnologyPage = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
   return (
     <div className="min-h-screen bg-slate-900 pt-20">
       <div className="max-w-[1500px] mx-auto px-4 py-20">

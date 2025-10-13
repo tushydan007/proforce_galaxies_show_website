@@ -1,7 +1,22 @@
 import { Award, Users, Zap } from "lucide-react";
 import SatelliteNetwork3D from "./SatelliteNetwork3D";
+import LoadingScreen from "./LoadingScreen";
+import { useEffect, useState } from "react";
 
 const AboutPage = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
   return (
     <div className="min-h-screen bg-[#0F172B] pt-20">
       <div className="max-w-[1500px] mx-auto px-4 py-20">

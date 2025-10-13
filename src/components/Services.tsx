@@ -1,59 +1,74 @@
 import { Globe2, Satellite, Map, Database, ChevronRight } from "lucide-react";
 import AdvancedTerrain3D from "./ThreeDTerrain";
 import toast from "react-hot-toast";
-// import DataVisualization3D from "./DataVisualization3D";
+import LoadingScreen from "./LoadingScreen";
+import { useEffect, useState } from "react";
+
+const services = [
+  {
+    icon: <Globe2 className="w-16 h-16 text-cyan-400" />,
+    title: "3D Mapping & Modeling",
+    description:
+      "High-precision 3D mapping services for urban planning, infrastructure development, and terrain analysis.",
+    features: [
+      "LiDAR Scanning",
+      "Photogrammetry",
+      "Point Cloud Processing",
+      "BIM Integration",
+    ],
+  },
+  {
+    icon: <Satellite className="w-16 h-16 text-cyan-400" />,
+    title: "Satellite Imagery Analysis",
+    description:
+      "Real-time satellite data analysis for environmental monitoring, agriculture, and resource management.",
+    features: [
+      "Multispectral Analysis",
+      "Change Detection",
+      "Time Series Analysis",
+      "AI-Powered Insights",
+    ],
+  },
+  {
+    icon: <Map className="w-16 h-16 text-cyan-400" />,
+    title: "GIS Solutions",
+    description:
+      "Comprehensive GIS solutions for spatial data analysis, visualization, and decision-making support.",
+    features: [
+      "Spatial Analysis",
+      "Custom Applications",
+      "Database Management",
+      "Web GIS Platforms",
+    ],
+  },
+  {
+    icon: <Database className="w-16 h-16 text-cyan-400" />,
+    title: "Data Processing & Analytics",
+    description:
+      "Advanced data processing pipelines for large-scale geospatial datasets and real-time analytics.",
+    features: [
+      "Big Data Processing",
+      "Cloud Computing",
+      "Machine Learning",
+      "API Integration",
+    ],
+  },
+];
 
 const ServicesPage = () => {
-  const services = [
-    {
-      icon: <Globe2 className="w-16 h-16 text-cyan-400" />,
-      title: "3D Mapping & Modeling",
-      description:
-        "High-precision 3D mapping services for urban planning, infrastructure development, and terrain analysis.",
-      features: [
-        "LiDAR Scanning",
-        "Photogrammetry",
-        "Point Cloud Processing",
-        "BIM Integration",
-      ],
-    },
-    {
-      icon: <Satellite className="w-16 h-16 text-cyan-400" />,
-      title: "Satellite Imagery Analysis",
-      description:
-        "Real-time satellite data analysis for environmental monitoring, agriculture, and resource management.",
-      features: [
-        "Multispectral Analysis",
-        "Change Detection",
-        "Time Series Analysis",
-        "AI-Powered Insights",
-      ],
-    },
-    {
-      icon: <Map className="w-16 h-16 text-cyan-400" />,
-      title: "GIS Solutions",
-      description:
-        "Comprehensive GIS solutions for spatial data analysis, visualization, and decision-making support.",
-      features: [
-        "Spatial Analysis",
-        "Custom Applications",
-        "Database Management",
-        "Web GIS Platforms",
-      ],
-    },
-    {
-      icon: <Database className="w-16 h-16 text-cyan-400" />,
-      title: "Data Processing & Analytics",
-      description:
-        "Advanced data processing pipelines for large-scale geospatial datasets and real-time analytics.",
-      features: [
-        "Big Data Processing",
-        "Cloud Computing",
-        "Machine Learning",
-        "API Integration",
-      ],
-    },
-  ];
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-900 pt-20">
@@ -121,7 +136,6 @@ const ServicesPage = () => {
                 Request Consultation
               </button>
             </div>
-            <div className="h-64">{/* <DataVisualization3D /> */}</div>
           </div>
         </div>
       </div>

@@ -29,6 +29,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import AdvancedTerrain3D from "./ThreeDTerrain";
+import LoadingScreen from "./LoadingScreen";
 
 // Types for Chatbot
 interface Message {
@@ -153,6 +154,7 @@ const ContactPage = () => {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [loading, setLoading] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -198,6 +200,14 @@ const ContactPage = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (isChatOpen && !isMinimized) {
@@ -263,6 +273,10 @@ const ContactPage = () => {
       hour12: true,
     });
   };
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="min-h-screen bg-[#0F172B] pt-20">
