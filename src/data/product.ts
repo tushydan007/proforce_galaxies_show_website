@@ -26,24 +26,9 @@ export const products: Product[] = [
     imageUrl: "/border.png",
     codeName: "PF-BorderGuard",
   },
-  // {
-  //   id: 2,
-  //   title: "LiDAR Scanner X1",
-  //   description:
-  //     "Portable high-precision LiDAR scanner for field operations and rapid data collection.",
-  //   features: [
-  //     "360° Scanning",
-  //     "Sub-centimeter Accuracy",
-  //     "Cloud Sync",
-  //     "Battery: 8 Hours",
-  //   ],
-  //   price: "$15,999",
-  //   category: "Infrastructure",
-  //   imageUrl: "/lidar.png",
-  //   codeName: "PF-TerraScan",
-  // },
+
   {
-    id: 3,
+    id: 2,
     title: "Terrain Analyzer",
     description:
       "Advanced terrain analysis tool for construction, mining, and environmental assessment.",
@@ -60,7 +45,7 @@ export const products: Product[] = [
   },
 
   {
-    id: 4,
+    id: 3,
     title: "Defense & Security Suite",
     description:
       "Advanced defense and surveillance platform with real-time threat detection, encrypted communications, and tactical coordination tools.",
@@ -76,7 +61,7 @@ export const products: Product[] = [
     codeName: "PF-Sentinel",
   },
   {
-    id: 5,
+    id: 4,
     title: "Smart Agriculture Toolkit",
     description:
       "Comprehensive agricultural management system with crop monitoring, weather integration, and smart irrigation support.",
@@ -92,7 +77,7 @@ export const products: Product[] = [
     codeName: "PF-AgriSense",
   },
   {
-    id: 6,
+    id: 5,
     title: "Urban Planning Suite",
     description:
       "Integrated urban development platform with zoning tools, infrastructure mapping, and stakeholder collaboration features.",
@@ -108,7 +93,7 @@ export const products: Product[] = [
     codeName: "PF-CityScape",
   },
   {
-    id: 7,
+    id: 6,
     title: "Environmental Monitoring System",
     description:
       "Real-time environmental monitoring platform with air and water quality sensors, data visualization, and alert systems.",
@@ -124,7 +109,7 @@ export const products: Product[] = [
     codeName: "PF-EcoWatch",
   },
   {
-    id: 8,
+    id: 7,
     title: "Transport & Logistics Manager",
     description:
       "End-to-end transportation and logistics platform with fleet tracking, route optimization, and delivery management.",
@@ -140,7 +125,7 @@ export const products: Product[] = [
     codeName: "PF-LogiTrack",
   },
   {
-    id: 9,
+    id: 8,
     title: "Energy & Utilities Platform",
     description:
       "Smart management system for energy and utility services with grid monitoring, consumption analytics, and outage detection.",
@@ -155,24 +140,9 @@ export const products: Product[] = [
     imageUrl: "/energy.png",
     codeName: "PF-PowerGrid",
   },
+
   {
-    id: 10,
-    title: "Weather Intelligence Suite",
-    description:
-      "Advanced weather data and forecasting platform with hyperlocal insights, alert systems, and decision support tools.",
-    features: [
-      "Hyperlocal Weather Forecasts",
-      "Severe Weather Alerts",
-      "Historical Weather Data",
-      "Decision Support Analytics",
-    ],
-    price: "$159/month",
-    category: "Disaster management",
-    imageUrl: "/weather-intelligence.png",
-    codeName: "PF-StormWatch",
-  },
-  {
-    id: 11,
+    id: 9,
     title: "Digital Twin Platform",
     description:
       "High-fidelity digital twin solution for real-time simulation, asset monitoring, and predictive maintenance across physical systems.",
@@ -188,7 +158,7 @@ export const products: Product[] = [
     codeName: "PF-TwinSim",
   },
   {
-    id: 12,
+    id: 10,
     title: "Ecosphere Management Suite",
     description:
       "Comprehensive platform for managing and monitoring ecosystems with biodiversity tracking, habitat mapping, and sustainability insights.",
@@ -204,7 +174,7 @@ export const products: Product[] = [
     codeName: "PF-EcoSphere",
   },
   {
-    id: 13,
+    id: 11,
     title: "Flood Risk Assessment Tool",
     description:
       "Advanced flood modeling and risk analysis platform with real-time data, predictive simulations, and impact mapping.",
@@ -220,7 +190,7 @@ export const products: Product[] = [
     codeName: "PF-FloodGuard",
   },
   {
-    id: 14,
+    id: 12,
     title: "Urban Growth Analysis Suite",
     description:
       "Data-driven platform for analyzing urban expansion with satellite imagery, land use change detection, and growth forecasting tools.",
@@ -236,7 +206,7 @@ export const products: Product[] = [
     codeName: "PF-UrbanGrowth",
   },
   {
-    id: 15,
+    id: 13,
     title: "Pipeline Monitoring Solution",
     description:
       "Comprehensive monitoring system for pipeline infrastructure with leak detection, pressure monitoring, and real-time alerts.",
@@ -251,24 +221,9 @@ export const products: Product[] = [
     imageUrl: "/pipeline.png",
     codeName: "PF-PipeWatch",
   },
+
   {
-    id: 16,
-    title: "Logistics & Delivery Management System",
-    description:
-      "End-to-end delivery management platform with real-time tracking, automated dispatching, and customer notifications.",
-    features: [
-      "Real-Time Delivery Tracking",
-      "Automated Dispatch & Routing",
-      "Driver & Fleet Management",
-      "Customer Notifications & Proof of Delivery",
-    ],
-    price: "$259/month",
-    category: "Transportation",
-    imageUrl: "/logistic.jpg",
-    codeName: "PF-DeliverEase",
-  },
-  {
-    id: 17,
+    id: 14,
     title: "Geofencing Solution",
     description:
       "Location-based platform enabling virtual boundaries with real-time alerts, asset tracking, and zone-based automation.",
@@ -284,7 +239,7 @@ export const products: Product[] = [
     codeName: "PF-GeoFencePro",
   },
   {
-    id: 18,
+    id: 15,
     title: "Geospatial Intelligence Solution",
     description:
       "Advanced geospatial analytics platform for situational awareness, mission planning, and decision support using satellite and ground data.",
@@ -300,7 +255,7 @@ export const products: Product[] = [
     codeName: "PF-GeoIntel",
   },
   {
-    id: 19,
+    id: 16,
     title: "Weather Intelligence Platform",
     description:
       "AI-powered weather intelligence system delivering hyperlocal forecasts, severe weather alerts, and climate impact analysis for smarter decisions.",
@@ -313,10 +268,10 @@ export const products: Product[] = [
     price: "$199/month",
     category: "Disaster management",
     imageUrl: "/weather-intelligence.jpg",
-    codeName: "PF-WeatherWise",
+    codeName: "PF-Caelus",
   },
   {
-    id: 20,
+    id: 17,
     title: "Environmental Change Detection System",
     description:
       "Remote sensing and analytics platform for detecting and monitoring environmental changes such as deforestation, urban sprawl, and land degradation.",
@@ -332,7 +287,7 @@ export const products: Product[] = [
     codeName: "PF-EnviroWatch",
   },
   {
-    id: 21,
+    id: 18,
     title: "Integrated Monitoring Solution",
     description:
       "Unified monitoring platform combining satellite imagery, drone feeds, CCTV surveillance, and geospatial data for comprehensive situational awareness and decision-making.",
@@ -345,10 +300,10 @@ export const products: Product[] = [
     price: "$449/month",
     category: "Infrastructure",
     imageUrl: "/drone2.jpg",
-    codeName: "PF-MonitorPro",
+    codeName: "PF-Vista",
   },
   {
-    id: 22,
+    id: 19,
     title: "Geo-Location Real-Time Tracking Platform",
     description:
       "High-precision geo-location platform offering real-time tracking, route analytics, and asset monitoring for improved operational efficiency.",
@@ -364,7 +319,7 @@ export const products: Product[] = [
     codeName: "PF-TrackIt",
   },
   {
-    id: 23,
+    id: 20,
     title: "Satellite-Based Real-Time Asset Monitoring",
     description:
       "Robust asset monitoring platform leveraging satellite technology for global real-time tracking, status updates, and risk management.",
@@ -380,7 +335,7 @@ export const products: Product[] = [
     codeName: "PF-AssetWatch",
   },
   {
-    id: 24,
+    id: 21,
     title: "Oilfield Operations Management System",
     description:
       "Comprehensive digital platform for managing onshore and offshore oilfield operations with real-time monitoring, asset tracking, and performance analytics.",
@@ -396,7 +351,7 @@ export const products: Product[] = [
     codeName: "PF-OilOps",
   },
   {
-    id: 25,
+    id: 22,
     title: "Pipeline Integrity & Leak Detection Suite",
     description:
       "Advanced pipeline monitoring system using satellite imagery, pressure sensors, and AI algorithms to detect leaks, corrosion, and unauthorized activity along pipeline routes.",
@@ -412,7 +367,7 @@ export const products: Product[] = [
     codeName: "PF-PipeSecure",
   },
   {
-    id: 26,
+    id: 23,
     title: "Upstream Exploration Intelligence Platform",
     description:
       "Geospatial exploration and drilling optimization tool integrating seismic data, satellite imagery, and geological analytics for efficient resource discovery.",
@@ -428,7 +383,7 @@ export const products: Product[] = [
     codeName: "PF-DrillSight",
   },
   {
-    id: 27,
+    id: 24,
     title: "Refinery Process Optimization System",
     description:
       "Smart refinery management solution designed to improve operational efficiency, reduce downtime, and optimize energy usage through predictive analytics and IoT integration.",
@@ -444,7 +399,7 @@ export const products: Product[] = [
     codeName: "PF-RefinEdge",
   },
   {
-    id: 28,
+    id: 25,
     title: "Offshore Asset Monitoring Platform",
     description:
       "Real-time offshore monitoring and maintenance system leveraging satellite communication, drone inspection, and IoT data for improved safety and asset reliability.",
