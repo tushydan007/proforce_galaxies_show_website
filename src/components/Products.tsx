@@ -36,10 +36,10 @@ const ProductsPage = () => {
           </p>
         </div>
 
-        <div className="flex flex-nowrap justify-center gap-4 mb-8">
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
           <button
             onClick={() => setSelectedCategory("all")}
-            className={`px-4 py-3 rounded-full font-semibold transition-all cursor-pointer ${
+            className={`px-4 py-2 md:py-3 rounded-full font-semibold transition-all cursor-pointer text-sm md:text-base ${
               selectedCategory === "all"
                 ? "bg-cyan-500 text-white"
                 : "bg-slate-800/50 text-gray-300 hover:bg-slate-700"
@@ -51,7 +51,7 @@ const ProductsPage = () => {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-3 rounded-full font-semibold transition-all cursor-pointer ${
+              className={`px-4 py-2 md:py-3 rounded-full font-semibold transition-all cursor-pointer text-sm md:text-base ${
                 selectedCategory === cat
                   ? "bg-cyan-500 text-white"
                   : "bg-slate-800/50 text-gray-300 hover:bg-slate-700"
