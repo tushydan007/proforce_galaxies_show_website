@@ -58,10 +58,10 @@ const FAQ_KNOWLEDGE = {
     "Our pricing varies based on project scope and requirements. Typical project ranges:\n\n• Basic surveys: $2,000 - $5,000\n• Medium projects: $5,000 - $15,000\n• Enterprise solutions: $15,000+\n\nWould you like to schedule a consultation for an accurate quote?",
   ],
   contact: [
-    "You can reach us through:\n\n📧 Email: contact@proforcegalaxies.com\n📧 Support: support@proforcegalaxies.com\n📞 Phone: +234 7012 234 567\n🏢 Office: 1, Akaka Junction, Ode Remo, Ogun State, Nigeria\n\nWe're available Mon-Fri: 9AM - 6PM PST",
+    "You can reach us through:\n\n📧 Email: info@proforcegalaxies.com\n📧 Support: info@proforcegalaxies.com\n📞 Phone: +234 7012 234 567\n🏢 Office: 1, Akaka Junction, Ode Remo, Ogun State, Nigeria\n\nWe're available Mon-Fri: 9AM - 6PM PST",
   ],
   support: [
-    "For technical support:\n\n1. Email our support team at support@proforcegalaxies.com\n2. Call us at +234 7012 234 567\n3. Use the contact form on this page\n\nOur team typically responds within 2-4 hours during business hours.",
+    "For technical support:\n\n1. Email our support team at info@proforcegalaxies.com\n2. Call us at +234 7012 234 567\n3. Use the contact form on this page\n\nOur team typically responds within 2-4 hours during business hours.",
   ],
   hours: [
     "Our business hours are:\n\n🕐 Monday - Friday: 9:00 AM - 6:00 PM PST\n🕐 Saturday: 10:00 AM - 2:00 PM PST\n🕐 Sunday: Closed\n\nFor urgent matters outside these hours, please email support@proforcegalaxies.com",
@@ -417,12 +417,7 @@ const ContactPage = () => {
                   <Mail className="w-6 h-6 text-cyan-400 mt-1" />
                   <div>
                     <h3 className="text-white font-semibold mb-1">Email</h3>
-                    <p className="text-gray-400">
-                      contact@proforcegalaxies.com
-                    </p>
-                    <p className="text-gray-400">
-                      support@proforcegalaxies.com
-                    </p>
+                    <p className="text-gray-400">info@proforcegalaxies.com</p>
                   </div>
                 </div>
               </div>
@@ -443,7 +438,7 @@ const ContactPage = () => {
                   <Users className="w-6 h-6 text-cyan-400 mt-1" />
                   <div>
                     <h3 className="text-white font-semibold mb-1">Phone</h3>
-                    <p className="text-gray-400">+234 7012 234 567</p>
+                    <p className="text-gray-400">+234 812 089 9087</p>
                     <p className="text-gray-400">Mon-Fri: 9AM - 6PM PST</p>
                   </div>
                 </div>

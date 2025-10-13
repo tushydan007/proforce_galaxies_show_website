@@ -24,10 +24,51 @@ const AboutPage = () => {
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
             About <span className="text-cyan-400">Proforce Galaxies</span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-16">
             Pioneering the future of geospatial technology with innovative 3D
             solutions
           </p>
+
+          {/* Vision & Mission Section */}
+          <div className="grid md:grid-cols-2 gap-8 mb-20">
+            <div className="flex flex-col justify-center items-center bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-2xl p-8 border border-cyan-500/20">
+              <div className="flex mb-4">
+                <Zap className="w-8 h-8 text-cyan-400 mr-3" />
+                <h2 className="text-3xl font-bold text-white">Our Vision</h2>
+              </div>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                To become the leading space and satellite technology solutions
+                provider globally.
+              </p>
+            </div>
+            <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-2xl p-8 border border-cyan-500/20">
+              <div className="flex justify-center mb-4">
+                <Award className="w-8 h-8 text-cyan-400 mr-3" />
+                <h2 className="text-3xl font-bold text-white">Our Mission</h2>
+              </div>
+              <ul className="text-gray-300 text-lg space-y-2 text-start">
+                <li>
+                  • Engaging in Upstream, Midstream and Downstream space
+                  operations
+                </li>
+                <li>
+                  • Manufacturing, Assembly, Integration and testing of
+                  spacecrafts including satellites: Optical satellites, SAR
+                  Satellites, Cubesats, Ground station equipments
+                </li>
+                <li>
+                  • SDaaS (Satellite Data as a Service): Provision of Satellite
+                  data solutions to end-users
+                </li>
+                <li>
+                  • Integrated Surveillance solutions (Satellite Imagery Feed
+                  [Space], Drone Imagery feed [Air], CCTV Imagery live feed
+                  [Ground])
+                </li>
+                <li>• Provision of Coms-on-the-move internet solution</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-32 mb-20">
@@ -49,14 +90,23 @@ const AboutPage = () => {
             </p>
             <div className="grid grid-cols-2 gap-4 pt-6">
               <div className="bg-slate-800/50 p-6 rounded-lg border border-cyan-500/20">
-                <Award className="w-8 h-8 text-cyan-400 mb-3" />
-                <h3 className="text-2xl font-bold text-white mb-1">50+</h3>
-                <p className="text-gray-400">Industry Awards</p>
+                <div className="flex justify-center">
+                  <Award className="w-8 h-8 text-cyan-400 mb-3" />
+                </div>
+
+                <h3 className="text-2xl font-bold text-white mb-1 text-center">
+                  50+
+                </h3>
+                <p className="text-gray-400 text-center">Industry Awards</p>
               </div>
               <div className="bg-slate-800/50 p-6 rounded-lg border border-cyan-500/20">
-                <Users className="w-8 h-8 text-cyan-400 mb-3" />
-                <h3 className="text-2xl font-bold text-white mb-1">200+</h3>
-                <p className="text-gray-400">Team Members</p>
+                <div className="flex justify-center">
+                  <Users className="w-8 h-8 text-cyan-400 mb-3" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-1 text-center">
+                  200+
+                </h3>
+                <p className="text-gray-400 text-center">Team Members</p>
               </div>
             </div>
           </div>
@@ -94,11 +144,11 @@ const AboutPage = () => {
                 key={index}
                 className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-cyan-500/20 hover:border-cyan-500/60 transition-all hover:transform hover:scale-105"
               >
-                <div className="mb-4">{value.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-3">
+                <div className="mb-4 flex justify-center">{value.icon}</div>
+                <h3 className="text-xl font-bold text-white mb-3 text-center">
                   {value.title}
                 </h3>
-                <p className="text-gray-300">{value.description}</p>
+                <p className="text-gray-300 text-center">{value.description}</p>
               </div>
             ))}
           </div>
