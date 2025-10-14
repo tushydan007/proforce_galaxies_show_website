@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import toast from "react-hot-toast";
 import { products } from "../data/product";
 import LoadingScreen from "./LoadingScreen";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   "Energy",
@@ -19,6 +20,12 @@ const categories = [
 const ProductsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [loading, setLoading] = useState(true);
+
+  const navigateToProduct = useNavigate();
+
+  const handleProductClick = (productId: number) => {
+    navigateToProduct(`/products/${productId}`);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -80,7 +87,8 @@ const ProductsPage = () => {
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="groupbg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-cyan-500/20 hover:border-cyan-500/60 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/30"
+              onClick={() => handleProductClick(product.id)}
+              className=" cursor-pointer group bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-cyan-500/20 hover:border-cyan-500/60 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/30"
             >
               <div className="h-48 relative overflow-hidden">
                 <img
