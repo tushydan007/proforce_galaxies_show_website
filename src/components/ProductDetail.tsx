@@ -15,10 +15,19 @@ import * as THREE from "three";
 import { useParams } from "react-router-dom";
 import { products, type Product } from "@/data/product";
 
+// Icon mapping for benefits
+const iconMap = {
+  Shield,
+  Zap,
+  Users,
+  TrendingUp,
+};
+
 const ProductDetailPage = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [activeTab, setActiveTab] = useState("overview");
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
 
   const { productId } = useParams();
 
@@ -29,12 +38,11 @@ const ProductDetailPage = () => {
     setProduct(product || null);
   }, [parsedProductId]);
 
-  const heroRef = useRef(null);
-
   // Three.js Scene Setup
   useEffect(() => {
     if (!canvasRef.current) return;
 
+    const canvas = canvasRef.current;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -79,6 +87,7 @@ const ProductDetailPage = () => {
       "position",
       new THREE.BufferAttribute(posArray, 3)
     );
+
     const particlesMaterial = new THREE.PointsMaterial({
       size: 0.02,
       color: 0x06b6d4,
@@ -102,43 +111,38 @@ const ProductDetailPage = () => {
 
     camera.position.z = 5;
 
-    let animationId: number;
     const animate = () => {
-      animationId = requestAnimationFrame(animate);
+      animationFrameRef.current = requestAnimationFrame(animate);
 
       torusKnot.rotation.x += 0.005;
       torusKnot.rotation.y += 0.005;
-
       particlesMesh.rotation.y += 0.001;
 
       renderer.render(scene, camera);
     };
-
     animate();
 
     const handleResize = () => {
-      if (!canvasRef.current) return;
-      camera.aspect =
-        canvasRef.current.clientWidth / canvasRef.current.clientHeight;
+      if (!canvas) return;
+      camera.aspect = canvas.clientWidth / canvas.clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(
-        canvasRef.current.clientWidth,
-        canvasRef.current.clientHeight
-      );
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationId);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
       renderer.dispose();
       geometry.dispose();
       material.dispose();
       particlesGeometry.dispose();
       particlesMaterial.dispose();
     };
-  }, []);
+  }, [product]);
 
   // Animate elements on mount
   useEffect(() => {
@@ -183,69 +187,6 @@ const ProductDetailPage = () => {
       </div>
     );
   }
-
-  const specifications = [
-    { label: "Deployment", value: "Cloud-based / On-premise" },
-    { label: "Updates", value: "Real-time / Continuous" },
-    { label: "Support", value: "24/7 Technical Support" },
-    { label: "Integration", value: "API & SDK Available" },
-    { label: "Scalability", value: "Enterprise-grade" },
-    { label: "Security", value: "End-to-end Encryption" },
-  ];
-
-  const benefits = [
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Enhanced Security",
-      description:
-        "Military-grade encryption and security protocols to protect your sensitive data and operations.",
-    },
-    {
-      icon: <Zap className="w-8 h-8" />,
-      title: "Real-time Performance",
-      description:
-        "Lightning-fast processing and instant insights for time-critical decision making.",
-    },
-    {
-      icon: <Users className="w-8 h-8" />,
-      title: "Collaborative Platform",
-      description:
-        "Seamless team collaboration with role-based access and shared workspaces.",
-    },
-    {
-      icon: <TrendingUp className="w-8 h-8" />,
-      title: "Scalable Growth",
-      description:
-        "Grows with your organization from small teams to enterprise-wide deployments.",
-    },
-  ];
-
-  const useCases = [
-    {
-      title: "Real-time Monitoring",
-      description:
-        "24/7 surveillance and monitoring capabilities with instant alerts and automated response protocols for critical events.",
-      image: "🎯",
-    },
-    {
-      title: "Data Analytics",
-      description:
-        "Advanced analytics engine processes millions of data points to deliver actionable insights and predictive intelligence.",
-      image: "📊",
-    },
-    {
-      title: "Integration Hub",
-      description:
-        "Seamlessly connects with your existing systems through robust APIs and pre-built connectors for major platforms.",
-      image: "🔗",
-    },
-    {
-      title: "Automation Suite",
-      description:
-        "Automate routine tasks and workflows to reduce manual effort and eliminate human error in critical operations.",
-      image: "⚡",
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-[#0F172B]">
