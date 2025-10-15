@@ -23,6 +23,8 @@ const iconMap = {
   TrendingUp,
 };
 
+type IconKey = keyof typeof iconMap;
+
 const ProductDetailPage = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [activeTab, setActiveTab] = useState("overview");
@@ -464,7 +466,7 @@ const ProductDetailPage = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {product.benefits.map((benefit, idx) => {
-              const IconComponent = iconMap[benefit.icon] || Shield;
+              const IconComponent = iconMap[benefit.icon as IconKey] || Shield;
               return (
                 <div
                   key={idx}
