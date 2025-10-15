@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ChevronRight,
   Check,
@@ -17,6 +17,9 @@ import { products, type Product } from "@/data/product";
 
 const ProductDetailPage = () => {
   const [product, setProduct] = useState<Product | null>(null);
+  const [activeTab, setActiveTab] = useState("overview");
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
   const { productId } = useParams();
 
   const parsedProductId = parseInt(productId ?? "0");
@@ -26,9 +29,7 @@ const ProductDetailPage = () => {
     setProduct(product || null);
   }, [parsedProductId]);
 
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const heroRef = useRef(null);
-  const [activeTab, setActiveTab] = useState("overview");
 
   // Three.js Scene Setup
   useEffect(() => {
@@ -141,6 +142,8 @@ const ProductDetailPage = () => {
 
   // Animate elements on mount
   useEffect(() => {
+    if (!product) return;
+
     const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -100px 0px",
@@ -159,7 +162,9 @@ const ProductDetailPage = () => {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [product]);
+
+  const stars = useMemo(() => Array(5).fill(0), []);
 
   if (!product) {
     return (
@@ -274,16 +279,18 @@ const ProductDetailPage = () => {
       `}</style>
 
       {/* Hero Section */}
-      <div ref={heroRef} className="pt-32 pb-20 px-4">
+      <div className="pt-32 pb-20 px-4">
         <div className="max-w-[1500px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Product Info */}
             <div className="space-y-6">
-              <div className="inline-block px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full animate-pulse">
-                <span className="text-cyan-400 font-semibold text-sm">
-                  {product.codeName}
-                </span>
-              </div>
+              {product.codeName && (
+                <div className="inline-block px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full animate-pulse">
+                  <span className="text-cyan-400 font-semibold text-sm">
+                    {product.codeName}
+                  </span>
+                </div>
+              )}
 
               <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight">
                 {product.title}
@@ -294,11 +301,12 @@ const ProductDetailPage = () => {
               </p>
 
               <div className="flex items-center space-x-2 text-yellow-400">
-                {[...Array(5)].map((_, i) => (
+                {stars.map((_, i) => (
                   <Star key={i} className="w-5 h-5 fill-current" />
                 ))}
                 <span className="text-gray-300 ml-2">
-                  (4.9/5 from 2,847 reviews)
+                  ({product.rating || 4.9}/5 from{" "}
+                  {product.reviewCount?.toLocaleString() || "2,847"} reviews)
                 </span>
               </div>
 
@@ -307,9 +315,8 @@ const ProductDetailPage = () => {
                   <div className="text-4xl font-bold text-cyan-400">
                     {product.price}
                   </div>
-                  <div className="text-sm text-gray-400 mt-1">per month</div>
                 </div>
-                <button className="flex-1 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/30">
+                <button className="cursor-pointer flex-1 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/30">
                   Get Started Now
                 </button>
               </div>
@@ -354,22 +361,30 @@ const ProductDetailPage = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/20 text-center animate-on-scroll">
               <Clock className="w-8 h-8 text-cyan-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white">99.9%</div>
+              <div className="text-2xl font-bold text-white">
+                {product.stats.uptime}
+              </div>
               <div className="text-sm text-gray-400">Uptime</div>
             </div>
             <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/20 text-center animate-on-scroll">
               <Users className="w-8 h-8 text-cyan-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white">10K+</div>
+              <div className="text-2xl font-bold text-white">
+                {product.stats.users}
+              </div>
               <div className="text-sm text-gray-400">Active Users</div>
             </div>
             <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/20 text-center animate-on-scroll">
               <Globe className="w-8 h-8 text-cyan-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white">120+</div>
+              <div className="text-2xl font-bold text-white">
+                {product.stats.countries}
+              </div>
               <div className="text-sm text-gray-400">Countries</div>
             </div>
             <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/20 text-center animate-on-scroll">
               <Headphones className="w-8 h-8 text-cyan-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white">24/7</div>
+              <div className="text-2xl font-bold text-white">
+                {product.stats.support}
+              </div>
               <div className="text-sm text-gray-400">Support</div>
             </div>
           </div>
@@ -377,7 +392,7 @@ const ProductDetailPage = () => {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-cyan-500/20 sticky top-[73px] bg-[#0F172B]/95 backdrop-blur-sm z-40">
+      <div className="border-b border-cyan-500/20 sticky top-0 bg-[#0F172B]/95 backdrop-blur-sm z-40">
         <div className="max-w-[1500px] mx-auto px-4">
           <div className="flex space-x-8 overflow-x-auto">
             {["overview", "features", "specifications", "benefits"].map(
@@ -402,7 +417,7 @@ const ProductDetailPage = () => {
       {/* Content Sections */}
       <div className="max-w-[1500px] mx-auto px-4 py-16">
         {/* Features Section */}
-        <div className="mb-20">
+        <section className="mb-20">
           <h2 className="text-4xl font-bold text-white mb-4 animate-on-scroll">
             Key Features
           </h2>
@@ -435,10 +450,10 @@ const ProductDetailPage = () => {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Use Cases Section */}
-        <div className="mb-20">
+        <section className="mb-20">
           <h2 className="text-4xl font-bold text-white mb-4 animate-on-scroll">
             Use Cases
           </h2>
@@ -448,13 +463,13 @@ const ProductDetailPage = () => {
           </p>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {useCases.map((useCase, idx) => (
+            {product.useCases.map((useCase, idx) => (
               <div
                 key={idx}
                 className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl p-8 border border-cyan-500/20 hover:border-cyan-500/60 transition-all duration-300 animate-on-scroll"
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                <div className="text-5xl mb-4">{useCase.image}</div>
+                <div className="text-5xl mb-4">{useCase.emoji}</div>
                 <h3 className="text-2xl font-semibold text-white mb-3">
                   {useCase.title}
                 </h3>
@@ -464,10 +479,10 @@ const ProductDetailPage = () => {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Specifications Section */}
-        <div className="mb-20">
+        <section className="mb-20">
           <h2 className="text-4xl font-bold text-white mb-4 animate-on-scroll">
             Technical Specifications
           </h2>
@@ -478,7 +493,7 @@ const ProductDetailPage = () => {
 
           <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-cyan-500/20 animate-on-scroll">
             <div className="grid md:grid-cols-2 gap-6">
-              {specifications.map((spec, idx) => (
+              {product.specifications.map((spec, idx) => (
                 <div
                   key={idx}
                   className="flex items-center space-x-4 p-4 rounded-lg hover:bg-slate-700/30 transition-colors"
@@ -494,10 +509,10 @@ const ProductDetailPage = () => {
               ))}
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Benefits Section */}
-        <div className="mb-20">
+        <section className="mb-20">
           <h2 className="text-4xl font-bold text-white mb-4 animate-on-scroll">
             Why Choose This Solution
           </h2>
@@ -507,30 +522,33 @@ const ProductDetailPage = () => {
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit, idx) => (
-              <div
-                key={idx}
-                className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/20 hover:border-cyan-500/60 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/20 animate-on-scroll"
-                style={{ animationDelay: `${idx * 0.1}s` }}
-              >
-                <div className="w-16 h-16 bg-cyan-500/10 rounded-xl flex items-center justify-center text-cyan-400 mb-4">
-                  {benefit.icon}
+            {product.benefits.map((benefit, idx) => {
+              const IconComponent = iconMap[benefit.icon] || Shield;
+              return (
+                <div
+                  key={idx}
+                  className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/20 hover:border-cyan-500/60 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/20 animate-on-scroll"
+                  style={{ animationDelay: `${idx * 0.1}s` }}
+                >
+                  <div className="w-16 h-16 bg-cyan-500/10 rounded-xl flex items-center justify-center text-cyan-400 mb-4">
+                    <IconComponent className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm">{benefit.description}</p>
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  {benefit.title}
-                </h3>
-                <p className="text-gray-400 text-sm">{benefit.description}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
-        </div>
+        </section>
 
         {/* Testimonial Section */}
-        <div className="mb-20">
+        <section className="mb-20">
           <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl p-12 border border-cyan-500/20 animate-on-scroll">
             <div className="max-w-3xl mx-auto text-center">
               <div className="flex justify-center mb-6">
-                {[...Array(5)].map((_, i) => (
+                {stars.map((_, i) => (
                   <Star
                     key={i}
                     className="w-6 h-6 text-yellow-400 fill-current"
@@ -538,28 +556,27 @@ const ProductDetailPage = () => {
                 ))}
               </div>
               <p className="text-2xl text-gray-300 mb-6 italic">
-                "This platform has revolutionized our operations. The real-time
-                monitoring and analytics have helped us make faster, more
-                informed decisions. Absolutely game-changing for our
-                organization."
+                "{product.testimonial.quote}"
               </p>
               <div className="flex items-center justify-center space-x-4">
                 <div className="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center">
                   <Users className="w-6 h-6 text-cyan-400" />
                 </div>
                 <div className="text-left">
-                  <div className="text-white font-semibold">Sarah Johnson</div>
+                  <div className="text-white font-semibold">
+                    {product.testimonial.author}
+                  </div>
                   <div className="text-gray-400 text-sm">
-                    Director of Operations, TechCorp
+                    {product.testimonial.role}, {product.testimonial.company}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* CTA Section */}
-        <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl p-12 border border-cyan-500/20 text-center animate-on-scroll">
+        <section className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl p-12 border border-cyan-500/20 text-center animate-on-scroll">
           <h2 className="text-3xl font-bold text-white mb-4">
             Ready to Transform Your Operations?
           </h2>
@@ -589,7 +606,7 @@ const ProductDetailPage = () => {
               <span>Cancel anytime</span>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );
