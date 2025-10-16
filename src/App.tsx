@@ -10,6 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 
 import { Route, Routes } from "react-router-dom";
 import ProductDetailPage from "./components/ProductDetail";
+import NewsMedia from "./components/NewsMedia";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/news-media" element={<NewsMedia />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/products" element={<ProductsPage />} />

@@ -1073,7 +1073,7 @@ export const products: Product[] = [
     ],
     price: "$229/month",
     category: "Urban planning",
-    imageUrl: "urban-growth.png",
+    imageUrl: "/urban-growth.png",
     codeName: "PF-UrbanGrowth",
     rating: 4.8,
     reviewCount: 1567,
@@ -2343,6 +2343,188 @@ export const products: Product[] = [
       author: "Captain Erik Johansen",
       role: "Offshore Operations Director",
       company: "North Sea Energy Partners",
+    },
+  },
+  {
+    id: 26,
+    title: "Ground Station Manufacturing & Assembly Platform",
+    description:
+      "Comprehensive platform for designing, manufacturing, and assembling ground station infrastructure with modular components, quality tracking, and integration testing capabilities.",
+    features: [
+      "Modular Component Design Library",
+      "Manufacturing Workflow Management",
+      "Quality Control & Testing Integration",
+      "Assembly Documentation & Tracking",
+    ],
+    price: "$849/month",
+    category: "Aerospace",
+    imageUrl: "/ground-station.png",
+    codeName: "PF-GroundForge",
+    rating: 4.9,
+    reviewCount: 1156,
+    specifications: [
+      { label: "Deployment", value: "Cloud-based / On-premise Manufacturing" },
+      { label: "Updates", value: "Continuous Integration Updates" },
+      { label: "Support", value: "24/7 Engineering Support" },
+      { label: "Integration", value: "CAD/PLM/ERP Compatible" },
+      { label: "Scalability", value: "Single Station to Network-Wide" },
+      { label: "Security", value: "ITAR/EAR Compliant Systems" },
+    ],
+    benefits: [
+      {
+        icon: "Shield",
+        title: "Quality Assurance",
+        description:
+          "Comprehensive quality tracking from component sourcing through final integration ensures mission-critical reliability standards.",
+      },
+      {
+        icon: "Zap",
+        title: "Rapid Deployment",
+        description:
+          "Modular design and pre-tested components reduce ground station deployment time from 18 months to 6 months.",
+      },
+      {
+        icon: "Users",
+        title: "Cross-Team Collaboration",
+        description:
+          "Unified platform connects RF engineers, mechanical designers, and integration teams with real-time project visibility.",
+      },
+      {
+        icon: "TrendingUp",
+        title: "Cost Optimization",
+        description:
+          "Standardized components and streamlined manufacturing processes reduce ground station costs by 35% while improving performance.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Antenna System Integration",
+        description:
+          "Design and manufacture complete antenna systems including reflectors, feeds, and positioners with automated RF performance validation and pointing accuracy testing.",
+        emoji: "📡",
+      },
+      {
+        title: "RF Chain Assembly",
+        description:
+          "Integrated workflow for assembling and testing RF front-ends, down-converters, and signal processing chains with automated performance characterization.",
+        emoji: "📻",
+      },
+      {
+        title: "Control System Integration",
+        description:
+          "Manufacturing and integration of tracking control systems, servo drives, and monitoring infrastructure with comprehensive system-level testing protocols.",
+        emoji: "🎛️",
+      },
+      {
+        title: "Environmental Testing",
+        description:
+          "Complete environmental qualification including temperature cycling, vibration testing, and EMI/EMC validation ensuring operational reliability in harsh conditions.",
+        emoji: "🔬",
+      },
+    ],
+    stats: {
+      uptime: "99.8%",
+      users: "1.2K+",
+      countries: "48+",
+      support: "24/7",
+    },
+    testimonial: {
+      quote:
+        "GroundForge transformed our ground station production. We've reduced manufacturing time by 55% and our first-pass integration success rate improved from 73% to 96%.",
+      author: "Dr. Sarah Chen",
+      role: "Ground Systems Director",
+      company: "Orbital Communications Network",
+    },
+  },
+  {
+    id: 27,
+    title: "Satellite Manufacturing & Assembly Suite",
+    description:
+      "End-to-end satellite production platform managing design, component integration, testing, and quality assurance for commercial and government satellite programs.",
+    features: [
+      "Digital Twin Manufacturing",
+      "Component Traceability System",
+      "Automated Testing & Validation",
+      "Launch Readiness Management",
+    ],
+    price: "$1,299/month",
+    category: "Aerospace",
+    imageUrl: "/satellite-manufacture.png",
+    codeName: "PF-SatForge",
+    rating: 4.9,
+    reviewCount: 892,
+    specifications: [
+      { label: "Deployment", value: "Secure Cloud / Air-Gapped Manufacturing" },
+      { label: "Updates", value: "Real-time Production Tracking" },
+      { label: "Support", value: "24/7 Spacecraft Engineering Support" },
+      { label: "Integration", value: "PLM/MES/Quality Systems Compatible" },
+      { label: "Scalability", value: "CubeSat to Large GEO Satellites" },
+      { label: "Security", value: "ITAR/EAR/Export Control Compliant" },
+    ],
+    benefits: [
+      {
+        icon: "Shield",
+        title: "Mission Assurance",
+        description:
+          "Rigorous quality control and traceability prevent anomalies with 99.7% first-flight success rate for manufactured satellites.",
+      },
+      {
+        icon: "Zap",
+        title: "Production Efficiency",
+        description:
+          "Streamlined workflows and digital integration reduce satellite manufacturing cycle time by 40% without compromising quality.",
+      },
+      {
+        icon: "Users",
+        title: "Supply Chain Visibility",
+        description:
+          "Complete component tracking from procurement through integration ensures on-time delivery and identifies bottlenecks early.",
+      },
+      {
+        icon: "TrendingUp",
+        title: "Cost Reduction",
+        description:
+          "Standardized processes and automated testing reduce manufacturing costs by 30% while improving reliability and performance.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Bus Integration",
+        description:
+          "Comprehensive workflow for satellite bus assembly including structure, propulsion, power, and thermal systems with automated fit-check and alignment verification.",
+        emoji: "🛰️",
+      },
+      {
+        title: "Payload Integration",
+        description:
+          "Manage complex payload integration including optical systems, RF communications, and sensors with performance testing and calibration documentation.",
+        emoji: "📷",
+      },
+      {
+        title: "Environmental Qualification",
+        description:
+          "Complete test campaign management including thermal-vacuum, vibration, acoustic, and EMC testing with automated data analysis and acceptance criteria validation.",
+        emoji: "🔧",
+      },
+      {
+        title: "Launch Preparation",
+        description:
+          "Integrated launch readiness tracking including final inspections, fueling operations, encapsulation, and transportation with comprehensive documentation and checklists.",
+        emoji: "🚀",
+      },
+    ],
+    stats: {
+      uptime: "99.9%",
+      users: "845+",
+      countries: "32+",
+      support: "24/7",
+    },
+    testimonial: {
+      quote:
+        "SatForge has revolutionized our satellite production line. We've manufactured 47 satellites with zero on-orbit failures and reduced our production costs by $1.8M per satellite.",
+      author: "James Mitchell",
+      role: "VP of Satellite Manufacturing",
+      company: "Constellation Space Systems",
     },
   },
 ];

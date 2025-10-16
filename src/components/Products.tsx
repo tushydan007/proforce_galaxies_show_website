@@ -6,15 +6,16 @@ import LoadingScreen from "./LoadingScreen";
 import { useNavigate } from "react-router-dom";
 
 const categories = [
-  "Energy",
+  "Aerospace",
   "Agriculture",
+  "Disaster management",
+  "Energy",
   "Environmental",
+  "Infrastructure",
+  "Oil & Gas",
   "Real estate",
   "Transportation",
   "Urban planning",
-  "Infrastructure",
-  "Disaster management",
-  "Oil & Gas",
 ];
 
 const ProductsPage = () => {

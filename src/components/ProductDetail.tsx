@@ -36,6 +36,11 @@ const ProductDetailPage = () => {
   const parsedProductId = parseInt(productId ?? "0");
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Fetch product based on URL parameter
+  useEffect(() => {
     const product = products.find((p) => p.id === parsedProductId);
     setProduct(product || null);
   }, [parsedProductId]);
