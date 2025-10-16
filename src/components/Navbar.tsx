@@ -1,4 +1,4 @@
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import RotatingLogo from "./AnimatedLogo";
@@ -6,6 +6,9 @@ import RotatingLogo from "./AnimatedLogo";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showProducts, setShowProducts] = useState(false);
+  const [showSatellite, setShowSatellite] = useState(false);
+  const [showGroundStation, setShowGroundStation] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -32,7 +35,9 @@ const Navbar = () => {
   };
 
   const isActive = (path: string) => {
-    return location.pathname === path;
+    return (
+      location.pathname === path || location.pathname.startsWith(path + "/")
+    );
   };
 
   return (
@@ -59,23 +64,197 @@ const Navbar = () => {
           </Link>
 
           <div className="hidden md:flex space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={handleNavClick}
-                className={`text-sm font-medium transition-all duration-300 relative ${
-                  isActive(link.path)
-                    ? "text-cyan-400"
-                    : "text-gray-300 hover:text-white"
-                }`}
-              >
-                {link.name}
-                {isActive(link.path) && (
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400"></span>
-                )}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              if (link.name === "Products") {
+                return (
+                  <div
+                    key={link.name}
+                    className="relative group"
+                    onMouseEnter={() => setShowProducts(true)}
+                    onMouseLeave={() =>
+                      setTimeout(() => setShowProducts(false), 250)
+                    }
+                  >
+                    <Link
+                      to={link.path}
+                      onClick={handleNavClick}
+                      className={`text-sm font-medium transition-all duration-300 relative flex items-center ${
+                        isActive(link.path)
+                          ? "text-cyan-400"
+                          : "text-gray-300 hover:text-white"
+                      }`}
+                    >
+                      {link.name}
+                      <ChevronDown className="w-3 h-3 ml-1 transition-transform duration-300 ease-in-out group-hover:rotate-180" />
+                      {isActive(link.path) && (
+                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400"></span>
+                      )}
+                    </Link>
+                    <ul
+                      className={`absolute left-0 top-full mt-2 w-48 bg-slate-900/95 backdrop-blur-md rounded-md shadow-lg shadow-cyan-500/10 transition-all duration-200 z-50 ${
+                        showProducts
+                          ? "opacity-100 visible"
+                          : "opacity-0 invisible"
+                      }`}
+                    >
+                      <li
+                        className="relative group"
+                        onMouseEnter={() => setShowSatellite(true)}
+                        onMouseLeave={() =>
+                          setTimeout(() => setShowSatellite(false), 250)
+                        }
+                      >
+                        <Link
+                          to="/products/satellite"
+                          onClick={handleNavClick}
+                          className={`flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-slate-800 transition-colors ${
+                            isActive("/products/satellite")
+                              ? "text-cyan-400 bg-slate-800"
+                              : ""
+                          }`}
+                        >
+                          Satellite
+                          <ChevronDown className="w-3 h-3 transition-transform duration-300 ease-in-out group-hover:rotate-180" />
+                        </Link>
+                        <ul
+                          className={`absolute left-full top-0 w-48 bg-slate-900/95 backdrop-blur-md rounded-md shadow-lg shadow-cyan-500/10 transition-all duration-200 z-50 ${
+                            showSatellite
+                              ? "opacity-100 visible"
+                              : "opacity-0 invisible"
+                          }`}
+                        >
+                          <li>
+                            <Link
+                              to="/products/satellite/cubesat"
+                              onClick={handleNavClick}
+                              className={`block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-slate-800 transition-colors ${
+                                isActive("/products/satellite/cubesat")
+                                  ? "text-cyan-400 bg-slate-800"
+                                  : ""
+                              }`}
+                            >
+                              Cubesat
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/products/satellite/optical"
+                              onClick={handleNavClick}
+                              className={`block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-slate-800 transition-colors ${
+                                isActive("/products/satellite/optical")
+                                  ? "text-cyan-400 bg-slate-800"
+                                  : ""
+                              }`}
+                            >
+                              Optical
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/products/satellite/synthetic-aperture-radar"
+                              onClick={handleNavClick}
+                              className={`block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-slate-800 transition-colors ${
+                                isActive(
+                                  "/products/satellite/synthetic-aperture-radar"
+                                )
+                                  ? "text-cyan-400 bg-slate-800"
+                                  : ""
+                              }`}
+                            >
+                              Synthetic Aperture Radar
+                            </Link>
+                          </li>
+                        </ul>
+                      </li>
+                      <li
+                        className="relative group"
+                        onMouseEnter={() => setShowGroundStation(true)}
+                        onMouseLeave={() =>
+                          setTimeout(() => setShowGroundStation(false), 250)
+                        }
+                      >
+                        <Link
+                          to="/products/ground-station"
+                          onClick={handleNavClick}
+                          className={`flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-slate-800 transition-colors ${
+                            isActive("/products/ground-station")
+                              ? "text-cyan-400 bg-slate-800"
+                              : ""
+                          }`}
+                        >
+                          Ground Station
+                          <ChevronDown className="w-3 h-3 transition-transform duration-300 ease-in-out group-hover:rotate-180" />
+                        </Link>
+                        <ul
+                          className={`absolute left-full top-0 w-48 bg-slate-900/95 backdrop-blur-md rounded-md shadow-lg shadow-cyan-500/10 transition-all duration-200 z-50 ${
+                            showGroundStation
+                              ? "opacity-100 visible"
+                              : "opacity-0 invisible"
+                          }`}
+                        >
+                          <li>
+                            <Link
+                              to="/products/ground-station/antennas"
+                              onClick={handleNavClick}
+                              className={`block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-slate-800 transition-colors ${
+                                isActive("/products/ground-station/antennas")
+                                  ? "text-cyan-400 bg-slate-800"
+                                  : ""
+                              }`}
+                            >
+                              Antennas
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/products/ground-station/receivers"
+                              onClick={handleNavClick}
+                              className={`block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-slate-800 transition-colors ${
+                                isActive("/products/ground-station/receivers")
+                                  ? "text-cyan-400 bg-slate-800"
+                                  : ""
+                              }`}
+                            >
+                              Receivers
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/products/ground-station/control"
+                              onClick={handleNavClick}
+                              className={`block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-slate-800 transition-colors ${
+                                isActive("/products/ground-station/control")
+                                  ? "text-cyan-400 bg-slate-800"
+                                  : ""
+                              }`}
+                            >
+                              Control Systems
+                            </Link>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                );
+              }
+              return (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  onClick={handleNavClick}
+                  className={`text-sm font-medium transition-all duration-300 relative ${
+                    isActive(link.path)
+                      ? "text-cyan-400"
+                      : "text-gray-300 hover:text-white"
+                  }`}
+                >
+                  {link.name}
+                  {isActive(link.path) && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400"></span>
+                  )}
+                </Link>
+              );
+            })}
           </div>
 
           <button
@@ -137,6 +316,7 @@ export default Navbar;
 //     { name: "Services", path: "/services" },
 //     { name: "Products", path: "/products" },
 //     { name: "Technology", path: "/technology" },
+//     { name: "News & Media", path: "/news-media" },
 //     { name: "Contact", path: "/contact" },
 //   ];
 
