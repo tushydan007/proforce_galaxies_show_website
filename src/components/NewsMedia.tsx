@@ -1,3 +1,4 @@
+// Previous version of the code before refactor to infinite scroll with pagination
 import React, {
   useEffect,
   useRef,
@@ -20,28 +21,25 @@ interface NewsItem {
   category?: string;
 }
 
-const NewsMedia = () => {
+const NewsMedia: React.FC = () => {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [newsletterEmail, setNewsletterEmail] = useState<string>("");
   const [newsletterSuccess, setNewsletterSuccess] = useState<boolean>(false);
   const [newsletterError, setNewsletterError] = useState<string | null>(null);
-  const [query, setQuery] = useState<string>("technology");
-  const [nextPage, setNextPage] = useState<number>(1);
-  const [hasMore, setHasMore] = useState<boolean>(true);
   const heroRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
-  const sentinelRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
   const newsletterRef = useRef<HTMLDivElement>(null);
-  const PAGE_SIZE = 8;
+  const ITEMS_PER_PAGE = 6;
 
   const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 
-  const loadNews = useCallback(
-    async (page: number, append: boolean = false) => {
+  const fetchNews = useCallback(
+    async (page: number = 1) => {
       if (!API_KEY) {
         setError(
           "News API key is missing. Please add VITE_NEWS_API_KEY to your environment variables."
@@ -54,13 +52,11 @@ const NewsMedia = () => {
         setLoading(true);
         setError(null);
         const fromDate = new Date();
-        fromDate.setMonth(fromDate.getMonth() - 1);
+        fromDate.setMonth(fromDate.getMonth() - 1); // Last month
         const response = await fetch(
-          `https://newsapi.org/v2/everything?q=${encodeURIComponent(
-            query
-          )}&from=${
+          `https://newsapi.org/v2/everything?q=technology&from=${
             fromDate.toISOString().split("T")[0]
-          }&sortBy=publishedAt&pageSize=${PAGE_SIZE}&page=${page}&apiKey=${API_KEY}`
+          }&sortBy=publishedAt&pageSize=20&page=${page}&apiKey=${API_KEY}`
         );
         const data = await response.json();
 
@@ -76,7 +72,7 @@ const NewsMedia = () => {
 
           const mappedNews: NewsItem[] = data.articles.map(
             (article: Article, index: number) => ({
-              id: append ? newsItems.length + index + 1 : index + 1,
+              id: (page - 1) * 20 + index + 1,
               title: article.title,
               excerpt: article.description || "No description available.",
               date: new Date(article.publishedAt).toLocaleDateString("en-US", {
@@ -91,16 +87,7 @@ const NewsMedia = () => {
               category: article.source?.name || "Technology",
             })
           );
-
-          if (append) {
-            setNewsItems((prev) => [...prev, ...mappedNews]);
-          } else {
-            setNewsItems(mappedNews);
-          }
-
-          if (mappedNews.length < PAGE_SIZE) {
-            setHasMore(false);
-          }
+          setNewsItems(mappedNews);
         } else {
           setError(data.message || "Failed to fetch news.");
         }
@@ -111,30 +98,12 @@ const NewsMedia = () => {
         setLoading(false);
       }
     },
-    [API_KEY, query, newsItems.length, PAGE_SIZE]
+    [API_KEY]
   );
 
   useEffect(() => {
-    loadNews(1, false);
-  }, [loadNews]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearch(searchTerm);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
-
-  useEffect(() => {
-    const newQuery = debouncedSearch || "technology";
-    if (newQuery !== query) {
-      setQuery(newQuery);
-      setNewsItems([]);
-      setHasMore(true);
-      setNextPage(1);
-      loadNews(1, false);
-    }
-  }, [debouncedSearch, query, loadNews]);
+    fetchNews(currentPage);
+  }, [fetchNews, currentPage]);
 
   const filteredNews = useMemo(() => {
     if (!searchTerm) return newsItems;
@@ -142,13 +111,24 @@ const NewsMedia = () => {
       (item) =>
         item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (item.category &&
-          item.category.toLowerCase().includes(searchTerm.toLowerCase()))
+        item.category?.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [newsItems, searchTerm]);
 
+  const paginatedNews = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredNews.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [filteredNews, currentPage]);
+
+  const totalPages = Math.ceil(filteredNews.length / ITEMS_PER_PAGE);
+
   const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
+    setCurrentPage(1); // Reset to first page on search
+  }, []);
+
+  const handlePageChange = useCallback((page: number) => {
+    setCurrentPage(page);
   }, []);
 
   const handleNewsletterSubmit = useCallback(
@@ -169,8 +149,8 @@ const NewsMedia = () => {
     [newsletterEmail]
   );
 
-  // Hero animation
   useEffect(() => {
+    // Hero animation
     if (heroRef.current) {
       gsap.fromTo(
         heroRef.current,
@@ -183,10 +163,8 @@ const NewsMedia = () => {
         }
       );
     }
-  }, []);
 
-  // Search bar animation
-  useEffect(() => {
+    // Search bar animation
     if (searchRef.current) {
       gsap.fromTo(
         searchRef.current,
@@ -200,10 +178,32 @@ const NewsMedia = () => {
         }
       );
     }
-  }, []);
 
-  // Newsletter animation
-  useEffect(() => {
+    // Cards animation on scroll
+    if (!loading && paginatedNews.length > 0) {
+      cardsRef.current.forEach((card, index) => {
+        if (card) {
+          gsap.fromTo(
+            card,
+            { opacity: 0, x: -50 },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.8,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 80%",
+                toggleActions: "play none none reverse",
+              },
+              delay: index * 0.2,
+            }
+          );
+        }
+      });
+    }
+
+    // Newsletter animation
     if (newsletterRef.current) {
       gsap.fromTo(
         newsletterRef.current,
@@ -221,31 +221,13 @@ const NewsMedia = () => {
       );
     }
 
+    // Cleanup
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, []);
+  }, [loading, paginatedNews]);
 
-  // Infinite scroll observer
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && hasMore && !loading) {
-          loadNews(nextPage, true);
-          setNextPage((prev) => prev + 1);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, [hasMore, loading, nextPage, loadNews]);
-
-  if (loading && newsItems.length === 0) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-[#0F172B] pt-16 text-white flex items-center justify-center">
         <div className="text-center">
@@ -256,7 +238,7 @@ const NewsMedia = () => {
     );
   }
 
-  if (error && newsItems.length === 0) {
+  if (error) {
     return (
       <div className="min-h-screen bg-[#0F172B] pt-16 text-white flex items-center justify-center">
         <div className="text-center">
@@ -273,27 +255,7 @@ const NewsMedia = () => {
     );
   }
 
-  const featuredItem = filteredNews[0];
-
-  const animateCard = (el: HTMLDivElement | null) => {
-    if (el) {
-      gsap.fromTo(
-        el,
-        { opacity: 0, x: -50 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    }
-  };
+  const featuredItem = paginatedNews[0];
 
   return (
     <div className="min-h-screen bg-[#0F172B] pt-16 text-white">
@@ -328,7 +290,15 @@ const NewsMedia = () => {
           <div className="max-w-[1500px] mx-auto">
             <article
               className="group relative bg-slate-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg shadow-cyan-500/5 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 border border-slate-700/50"
-              ref={animateCard}
+              ref={(el) => {
+                if (
+                  el &&
+                  el instanceof HTMLDivElement &&
+                  cardsRef.current[0] !== el
+                ) {
+                  cardsRef.current[0] = el;
+                }
+              }}
               role="article"
               aria-labelledby={`featured-title-${featuredItem.id}`}
             >
@@ -390,93 +360,142 @@ const NewsMedia = () => {
           <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
             Latest Updates
           </h2>
-          {filteredNews.length > (featuredItem ? 1 : 0) && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredNews.slice(featuredItem ? 1 : 0).map((item) => (
-                <article
-                  key={item.id}
-                  className="group bg-slate-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg shadow-cyan-500/5 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 border border-slate-700/50"
-                  ref={animateCard}
-                  role="article"
-                  aria-labelledby={`title-${item.id}`}
-                >
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={item.imageUrl}
-                      alt={item.title}
-                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="absolute top-3 right-3 px-2 py-1 bg-cyan-400/20 text-cyan-400 text-xs font-medium rounded">
-                      {item.category}
-                    </span>
-                  </div>
-                  <div className="p-6">
-                    <span className="text-sm text-gray-400 font-medium uppercase tracking-wide">
-                      {item.date}
-                    </span>
-                    <h3
-                      id={`title-${item.id}`}
-                      className="mt-2 text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors duration-300"
-                    >
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 text-gray-300 leading-relaxed line-clamp-3">
-                      {item.excerpt}
-                    </p>
-                    <a
-                      href={item.readMoreUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center mt-4 text-cyan-400 hover:text-white font-medium transition-colors duration-300"
-                      aria-label={`Read more about ${item.title}`}
-                    >
-                      Read More
-                      <svg
-                        className="w-4 h-4 ml-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </a>
-                  </div>
-                </article>
-              ))}
-              {loading && filteredNews.length > 0 && (
-                <div className="col-span-full text-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400 mx-auto mb-2"></div>
-                  <p className="text-gray-300">Loading more articles...</p>
-                </div>
-              )}
-              {!hasMore && filteredNews.length > 0 && (
-                <div className="col-span-full text-center py-8 text-gray-400">
-                  No more articles to load.
-                </div>
-              )}
-              {hasMore && !loading && (
-                <div ref={sentinelRef} className="col-span-full h-20" />
-              )}
-            </div>
-          )}
-          {error && newsItems.length > 0 && (
-            <div className="text-center py-8">
-              <p className="text-red-400 mb-4">{error}</p>
-              <button
-                onClick={() => loadNews(1, false)}
-                className="px-4 py-2 bg-cyan-400 text-black rounded-md hover:bg-cyan-300 transition-colors"
-                aria-label="Retry loading news"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {paginatedNews.slice(1).map((item, index) => (
+              <article
+                key={item.id}
+                className="group bg-slate-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg shadow-cyan-500/5 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 border border-slate-700/50"
+                ref={(el) => {
+                  if (el && el instanceof HTMLDivElement) {
+                    cardsRef.current[index + 1] = el;
+                  }
+                }}
+                role="article"
+                aria-labelledby={`title-${item.id}`}
               >
-                Retry
+                <div className="relative overflow-hidden">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span className="absolute top-3 right-3 px-2 py-1 bg-cyan-400/20 text-cyan-400 text-xs font-medium rounded">
+                    {item.category}
+                  </span>
+                </div>
+                <div className="p-6">
+                  <span className="text-sm text-gray-400 font-medium uppercase tracking-wide">
+                    {item.date}
+                  </span>
+                  <h3
+                    id={`title-${item.id}`}
+                    className="mt-2 text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors duration-300"
+                  >
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-gray-300 leading-relaxed line-clamp-3">
+                    {item.excerpt}
+                  </p>
+                  <a
+                    href={item.readMoreUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center mt-4 text-cyan-400 hover:text-white font-medium transition-colors duration-300"
+                    aria-label={`Read more about ${item.title}`}
+                  >
+                    Read More
+                    <svg
+                      className="w-4 h-4 ml-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <nav
+              className="flex justify-center items-center mt-12 space-x-2"
+              aria-label="Pagination navigation"
+            >
+              {/* Previous Button */}
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="cursor-pointer px-4 py-2 rounded-md transition-colors flex items-center bg-slate-800/50 text-gray-300 hover:bg-slate-700/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-slate-800/50"
+                aria-label="Go to previous page"
+              >
+                <svg
+                  className="w-4 h-4 mr-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+                Previous
               </button>
-            </div>
+
+              {/* Page Numbers */}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={`px-3 py-2 rounded-md transition-colors cursor-pointer ${
+                      currentPage === page
+                        ? "bg-cyan-400 text-black font-medium"
+                        : "bg-slate-800/50 text-gray-300 hover:bg-slate-700/50"
+                    }`}
+                    aria-label={`Go to page ${page}`}
+                    aria-current={currentPage === page ? "page" : undefined}
+                  >
+                    {page}
+                  </button>
+                )
+              )}
+
+              {/* Next Button */}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="cursor-pointer px-4 py-2 rounded-md transition-colors flex items-center bg-slate-800/50 text-gray-300 hover:bg-slate-700/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-slate-800/50"
+                aria-label="Go to next page"
+              >
+                Next
+                <svg
+                  className="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </nav>
           )}
         </div>
       </section>
@@ -535,7 +554,7 @@ const NewsMedia = () => {
           <h2 className="text-2xl font-bold mb-8 text-gray-300">Follow Us</h2>
           <div className="flex justify-center space-x-6">
             <a
-              href="https://twitter.com/Proforcedefence"
+              href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-cyan-400 transition-colors duration-300"
@@ -546,7 +565,7 @@ const NewsMedia = () => {
               </svg>
             </a>
             <a
-              href="https://www.linkedin.com/company/proforcelimited"
+              href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-cyan-400 transition-colors duration-300"
@@ -557,7 +576,7 @@ const NewsMedia = () => {
               </svg>
             </a>
             <a
-              href="https://www.youtube.com/@PROFORCEofficial"
+              href="https://youtube.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-cyan-400 transition-colors duration-300"
@@ -576,7 +595,7 @@ const NewsMedia = () => {
 
 export default NewsMedia;
 
-// Previous version of the code before refactor to infinite scroll with pagination
+// This is the implementation of an infinite scroll for the NewsMedia component
 // import React, {
 //   useEffect,
 //   useRef,
@@ -599,25 +618,28 @@ export default NewsMedia;
 //   category?: string;
 // }
 
-// const NewsMedia: React.FC = () => {
+// const NewsMedia = () => {
 //   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
 //   const [loading, setLoading] = useState<boolean>(true);
 //   const [error, setError] = useState<string | null>(null);
 //   const [searchTerm, setSearchTerm] = useState<string>("");
-//   const [currentPage, setCurrentPage] = useState<number>(1);
+//   const [debouncedSearch, setDebouncedSearch] = useState<string>("");
 //   const [newsletterEmail, setNewsletterEmail] = useState<string>("");
 //   const [newsletterSuccess, setNewsletterSuccess] = useState<boolean>(false);
 //   const [newsletterError, setNewsletterError] = useState<string | null>(null);
+//   const [query, setQuery] = useState<string>("technology");
+//   const [nextPage, setNextPage] = useState<number>(1);
+//   const [hasMore, setHasMore] = useState<boolean>(true);
 //   const heroRef = useRef<HTMLDivElement>(null);
 //   const searchRef = useRef<HTMLInputElement>(null);
-//   const cardsRef = useRef<HTMLDivElement[]>([]);
+//   const sentinelRef = useRef<HTMLDivElement>(null);
 //   const newsletterRef = useRef<HTMLDivElement>(null);
-//   const ITEMS_PER_PAGE = 6;
+//   const PAGE_SIZE = 8;
 
 //   const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 
-//   const fetchNews = useCallback(
-//     async (page: number = 1) => {
+//   const loadNews = useCallback(
+//     async (page: number, append: boolean = false) => {
 //       if (!API_KEY) {
 //         setError(
 //           "News API key is missing. Please add VITE_NEWS_API_KEY to your environment variables."
@@ -630,11 +652,13 @@ export default NewsMedia;
 //         setLoading(true);
 //         setError(null);
 //         const fromDate = new Date();
-//         fromDate.setMonth(fromDate.getMonth() - 1); // Last month
+//         fromDate.setMonth(fromDate.getMonth() - 1);
 //         const response = await fetch(
-//           `https://newsapi.org/v2/everything?q=technology&from=${
+//           `https://newsapi.org/v2/everything?q=${encodeURIComponent(
+//             query
+//           )}&from=${
 //             fromDate.toISOString().split("T")[0]
-//           }&sortBy=publishedAt&pageSize=20&page=${page}&apiKey=${API_KEY}`
+//           }&sortBy=publishedAt&pageSize=${PAGE_SIZE}&page=${page}&apiKey=${API_KEY}`
 //         );
 //         const data = await response.json();
 
@@ -650,7 +674,7 @@ export default NewsMedia;
 
 //           const mappedNews: NewsItem[] = data.articles.map(
 //             (article: Article, index: number) => ({
-//               id: (page - 1) * 20 + index + 1,
+//               id: append ? newsItems.length + index + 1 : index + 1,
 //               title: article.title,
 //               excerpt: article.description || "No description available.",
 //               date: new Date(article.publishedAt).toLocaleDateString("en-US", {
@@ -665,7 +689,16 @@ export default NewsMedia;
 //               category: article.source?.name || "Technology",
 //             })
 //           );
-//           setNewsItems(mappedNews);
+
+//           if (append) {
+//             setNewsItems((prev) => [...prev, ...mappedNews]);
+//           } else {
+//             setNewsItems(mappedNews);
+//           }
+
+//           if (mappedNews.length < PAGE_SIZE) {
+//             setHasMore(false);
+//           }
 //         } else {
 //           setError(data.message || "Failed to fetch news.");
 //         }
@@ -676,12 +709,30 @@ export default NewsMedia;
 //         setLoading(false);
 //       }
 //     },
-//     [API_KEY]
+//     [API_KEY, query, newsItems.length, PAGE_SIZE]
 //   );
 
 //   useEffect(() => {
-//     fetchNews(currentPage);
-//   }, [fetchNews, currentPage]);
+//     loadNews(1, false);
+//   }, [loadNews]);
+
+//   useEffect(() => {
+//     const timer = setTimeout(() => {
+//       setDebouncedSearch(searchTerm);
+//     }, 300);
+//     return () => clearTimeout(timer);
+//   }, [searchTerm]);
+
+//   useEffect(() => {
+//     const newQuery = debouncedSearch || "technology";
+//     if (newQuery !== query) {
+//       setQuery(newQuery);
+//       setNewsItems([]);
+//       setHasMore(true);
+//       setNextPage(1);
+//       loadNews(1, false);
+//     }
+//   }, [debouncedSearch, query, loadNews]);
 
 //   const filteredNews = useMemo(() => {
 //     if (!searchTerm) return newsItems;
@@ -689,24 +740,13 @@ export default NewsMedia;
 //       (item) =>
 //         item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
 //         item.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//         item.category?.toLowerCase().includes(searchTerm.toLowerCase())
+//         (item.category &&
+//           item.category.toLowerCase().includes(searchTerm.toLowerCase()))
 //     );
 //   }, [newsItems, searchTerm]);
 
-//   const paginatedNews = useMemo(() => {
-//     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-//     return filteredNews.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-//   }, [filteredNews, currentPage]);
-
-//   const totalPages = Math.ceil(filteredNews.length / ITEMS_PER_PAGE);
-
 //   const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 //     setSearchTerm(e.target.value);
-//     setCurrentPage(1); // Reset to first page on search
-//   }, []);
-
-//   const handlePageChange = useCallback((page: number) => {
-//     setCurrentPage(page);
 //   }, []);
 
 //   const handleNewsletterSubmit = useCallback(
@@ -727,8 +767,8 @@ export default NewsMedia;
 //     [newsletterEmail]
 //   );
 
+//   // Hero animation
 //   useEffect(() => {
-//     // Hero animation
 //     if (heroRef.current) {
 //       gsap.fromTo(
 //         heroRef.current,
@@ -741,8 +781,10 @@ export default NewsMedia;
 //         }
 //       );
 //     }
+//   }, []);
 
-//     // Search bar animation
+//   // Search bar animation
+//   useEffect(() => {
 //     if (searchRef.current) {
 //       gsap.fromTo(
 //         searchRef.current,
@@ -756,32 +798,10 @@ export default NewsMedia;
 //         }
 //       );
 //     }
+//   }, []);
 
-//     // Cards animation on scroll
-//     if (!loading && paginatedNews.length > 0) {
-//       cardsRef.current.forEach((card, index) => {
-//         if (card) {
-//           gsap.fromTo(
-//             card,
-//             { opacity: 0, x: -50 },
-//             {
-//               opacity: 1,
-//               x: 0,
-//               duration: 0.8,
-//               ease: "power3.out",
-//               scrollTrigger: {
-//                 trigger: card,
-//                 start: "top 80%",
-//                 toggleActions: "play none none reverse",
-//               },
-//               delay: index * 0.2,
-//             }
-//           );
-//         }
-//       });
-//     }
-
-//     // Newsletter animation
+//   // Newsletter animation
+//   useEffect(() => {
 //     if (newsletterRef.current) {
 //       gsap.fromTo(
 //         newsletterRef.current,
@@ -799,13 +819,31 @@ export default NewsMedia;
 //       );
 //     }
 
-//     // Cleanup
 //     return () => {
 //       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 //     };
-//   }, [loading, paginatedNews]);
+//   }, []);
 
-//   if (loading) {
+//   // Infinite scroll observer
+//   useEffect(() => {
+//     const sentinel = sentinelRef.current;
+//     if (!sentinel) return;
+
+//     const observer = new IntersectionObserver(
+//       ([entry]) => {
+//         if (entry.isIntersecting && hasMore && !loading) {
+//           loadNews(nextPage, true);
+//           setNextPage((prev) => prev + 1);
+//         }
+//       },
+//       { threshold: 0.1 }
+//     );
+
+//     observer.observe(sentinel);
+//     return () => observer.disconnect();
+//   }, [hasMore, loading, nextPage, loadNews]);
+
+//   if (loading && newsItems.length === 0) {
 //     return (
 //       <div className="min-h-screen bg-[#0F172B] pt-16 text-white flex items-center justify-center">
 //         <div className="text-center">
@@ -816,7 +854,7 @@ export default NewsMedia;
 //     );
 //   }
 
-//   if (error) {
+//   if (error && newsItems.length === 0) {
 //     return (
 //       <div className="min-h-screen bg-[#0F172B] pt-16 text-white flex items-center justify-center">
 //         <div className="text-center">
@@ -833,7 +871,27 @@ export default NewsMedia;
 //     );
 //   }
 
-//   const featuredItem = paginatedNews[0];
+//   const featuredItem = filteredNews[0];
+
+//   const animateCard = (el: HTMLDivElement | null) => {
+//     if (el) {
+//       gsap.fromTo(
+//         el,
+//         { opacity: 0, x: -50 },
+//         {
+//           opacity: 1,
+//           x: 0,
+//           duration: 0.8,
+//           ease: "power3.out",
+//           scrollTrigger: {
+//             trigger: el,
+//             start: "top 80%",
+//             toggleActions: "play none none reverse",
+//           },
+//         }
+//       );
+//     }
+//   };
 
 //   return (
 //     <div className="min-h-screen bg-[#0F172B] pt-16 text-white">
@@ -868,15 +926,7 @@ export default NewsMedia;
 //           <div className="max-w-[1500px] mx-auto">
 //             <article
 //               className="group relative bg-slate-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg shadow-cyan-500/5 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 border border-slate-700/50"
-//               ref={(el) => {
-//                 if (
-//                   el &&
-//                   el instanceof HTMLDivElement &&
-//                   cardsRef.current[0] !== el
-//                 ) {
-//                   cardsRef.current[0] = el;
-//                 }
-//               }}
+//               ref={animateCard}
 //               role="article"
 //               aria-labelledby={`featured-title-${featuredItem.id}`}
 //             >
@@ -938,91 +988,92 @@ export default NewsMedia;
 //           <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
 //             Latest Updates
 //           </h2>
-//           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-//             {paginatedNews.slice(1).map((item, index) => (
-//               <article
-//                 key={item.id}
-//                 className="group bg-slate-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg shadow-cyan-500/5 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 border border-slate-700/50"
-//                 ref={(el) => {
-//                   if (el && el instanceof HTMLDivElement) {
-//                     cardsRef.current[index + 1] = el;
-//                   }
-//                 }}
-//                 role="article"
-//                 aria-labelledby={`title-${item.id}`}
-//               >
-//                 <div className="relative overflow-hidden">
-//                   <img
-//                     src={item.imageUrl}
-//                     alt={item.title}
-//                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-//                     loading="lazy"
-//                   />
-//                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-//                   <span className="absolute top-3 right-3 px-2 py-1 bg-cyan-400/20 text-cyan-400 text-xs font-medium rounded">
-//                     {item.category}
-//                   </span>
-//                 </div>
-//                 <div className="p-6">
-//                   <span className="text-sm text-gray-400 font-medium uppercase tracking-wide">
-//                     {item.date}
-//                   </span>
-//                   <h3
-//                     id={`title-${item.id}`}
-//                     className="mt-2 text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors duration-300"
-//                   >
-//                     {item.title}
-//                   </h3>
-//                   <p className="mt-3 text-gray-300 leading-relaxed line-clamp-3">
-//                     {item.excerpt}
-//                   </p>
-//                   <a
-//                     href={item.readMoreUrl}
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                     className="inline-flex items-center mt-4 text-cyan-400 hover:text-white font-medium transition-colors duration-300"
-//                     aria-label={`Read more about ${item.title}`}
-//                   >
-//                     Read More
-//                     <svg
-//                       className="w-4 h-4 ml-1"
-//                       fill="none"
-//                       stroke="currentColor"
-//                       viewBox="0 0 24 24"
+//           {filteredNews.length > (featuredItem ? 1 : 0) && (
+//             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+//               {filteredNews.slice(featuredItem ? 1 : 0).map((item) => (
+//                 <article
+//                   key={item.id}
+//                   className="group bg-slate-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg shadow-cyan-500/5 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 border border-slate-700/50"
+//                   ref={animateCard}
+//                   role="article"
+//                   aria-labelledby={`title-${item.id}`}
+//                 >
+//                   <div className="relative overflow-hidden">
+//                     <img
+//                       src={item.imageUrl}
+//                       alt={item.title}
+//                       className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+//                       loading="lazy"
+//                     />
+//                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+//                     <span className="absolute top-3 right-3 px-2 py-1 bg-cyan-400/20 text-cyan-400 text-xs font-medium rounded">
+//                       {item.category}
+//                     </span>
+//                   </div>
+//                   <div className="p-6">
+//                     <span className="text-sm text-gray-400 font-medium uppercase tracking-wide">
+//                       {item.date}
+//                     </span>
+//                     <h3
+//                       id={`title-${item.id}`}
+//                       className="mt-2 text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors duration-300"
 //                     >
-//                       <path
-//                         strokeLinecap="round"
-//                         strokeLinejoin="round"
-//                         strokeWidth={2}
-//                         d="M9 5l7 7-7 7"
-//                       />
-//                     </svg>
-//                   </a>
+//                       {item.title}
+//                     </h3>
+//                     <p className="mt-3 text-gray-300 leading-relaxed line-clamp-3">
+//                       {item.excerpt}
+//                     </p>
+//                     <a
+//                       href={item.readMoreUrl}
+//                       target="_blank"
+//                       rel="noopener noreferrer"
+//                       className="inline-flex items-center mt-4 text-cyan-400 hover:text-white font-medium transition-colors duration-300"
+//                       aria-label={`Read more about ${item.title}`}
+//                     >
+//                       Read More
+//                       <svg
+//                         className="w-4 h-4 ml-1"
+//                         fill="none"
+//                         stroke="currentColor"
+//                         viewBox="0 0 24 24"
+//                       >
+//                         <path
+//                           strokeLinecap="round"
+//                           strokeLinejoin="round"
+//                           strokeWidth={2}
+//                           d="M9 5l7 7-7 7"
+//                         />
+//                       </svg>
+//                     </a>
+//                   </div>
+//                 </article>
+//               ))}
+//               {loading && filteredNews.length > 0 && (
+//                 <div className="col-span-full text-center py-8">
+//                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400 mx-auto mb-2"></div>
+//                   <p className="text-gray-300">Loading more articles...</p>
 //                 </div>
-//               </article>
-//             ))}
-//           </div>
-
-//           {/* Pagination */}
-//           {totalPages > 1 && (
-//             <div className="flex justify-center mt-12 space-x-2">
-//               {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-//                 (page) => (
-//                   <button
-//                     key={page}
-//                     onClick={() => handlePageChange(page)}
-//                     className={`px-3 py-2 rounded-md transition-colors ${
-//                       currentPage === page
-//                         ? "bg-cyan-400 text-black font-medium"
-//                         : "bg-slate-800/50 text-gray-300 hover:bg-slate-700/50"
-//                     }`}
-//                     aria-label={`Go to page ${page}`}
-//                     aria-current={currentPage === page ? "page" : undefined}
-//                   >
-//                     {page}
-//                   </button>
-//                 )
 //               )}
+//               {!hasMore && filteredNews.length > 0 && (
+//                 <div className="col-span-full text-center py-8 text-gray-400">
+//                   No more articles to load.
+//                 </div>
+//               )}
+//               {hasMore && !loading && (
+//                 <div ref={sentinelRef} className="col-span-full h-20" />
+//               )}
+//             </div>
+//           )}
+//           {error && newsItems.length > 0 && (
+//             <div className="text-center py-8">
+//               <p className="text-red-400 mb-4">{error}</p>
+//               <button
+//                 onClick={() => loadNews(1, false)}
+//                 className="px-4 py-2 bg-cyan-400 text-black rounded-md hover:bg-cyan-300 transition-colors"
+//                 aria-label="Retry loading news"
+//               >
+//                 Retry
+//               </button>
 //             </div>
 //           )}
 //         </div>
@@ -1082,7 +1133,7 @@ export default NewsMedia;
 //           <h2 className="text-2xl font-bold mb-8 text-gray-300">Follow Us</h2>
 //           <div className="flex justify-center space-x-6">
 //             <a
-//               href="https://twitter.com"
+//               href="https://twitter.com/Proforcedefence"
 //               target="_blank"
 //               rel="noopener noreferrer"
 //               className="text-gray-400 hover:text-cyan-400 transition-colors duration-300"
@@ -1093,7 +1144,7 @@ export default NewsMedia;
 //               </svg>
 //             </a>
 //             <a
-//               href="https://linkedin.com"
+//               href="https://www.linkedin.com/company/proforcelimited"
 //               target="_blank"
 //               rel="noopener noreferrer"
 //               className="text-gray-400 hover:text-cyan-400 transition-colors duration-300"
@@ -1104,7 +1155,7 @@ export default NewsMedia;
 //               </svg>
 //             </a>
 //             <a
-//               href="https://youtube.com"
+//               href="https://www.youtube.com/@PROFORCEofficial"
 //               target="_blank"
 //               rel="noopener noreferrer"
 //               className="text-gray-400 hover:text-cyan-400 transition-colors duration-300"
