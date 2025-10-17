@@ -14,21 +14,23 @@ import NewsMedia from "./components/NewsMedia";
 
 const App = () => {
   return (
-    <>
+    <div className="flex flex-col bg-[#0F172B] min-h-screen">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/news-media" element={<NewsMedia />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/:productId" element={<ProductDetailPage />} />
-        <Route path="/technology" element={<TechnologyPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-      </Routes>
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/news-media" element={<NewsMedia />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/products/:productId" element={<ProductDetailPage />} />
+          <Route path="/technology" element={<TechnologyPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </main>
       <ScrollToTop />
       <Footer />
-    </>
+    </div>
   );
 };
 
