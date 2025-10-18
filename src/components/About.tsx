@@ -874,19 +874,38 @@ const AboutPage = () => {
             <ul className="text-gray-300 space-y-2">
               <li className="flex items-start">
                 <span className="text-cyan-400 mr-2">▸</span>
-                <span>Comprehensive space operations across all segments</span>
+                <span>
+                  Engaging in upstream, midstream, and downstream space
+                  operations
+                </span>
               </li>
               <li className="flex items-start">
                 <span className="text-cyan-400 mr-2">▸</span>
-                <span>Advanced satellite and ground station manufacturing</span>
+                <span>
+                  Manufacturing, Assembly, Integration and testing of space
+                  crafts including but not limited to satellites; Optical
+                  satellites, Synthetic Aperture Radar (SAR) satellites,
+                  Cudesats, Ground stations equipments
+                </span>
               </li>
               <li className="flex items-start">
                 <span className="text-cyan-400 mr-2">▸</span>
-                <span>Seamless satellite data delivery to end-users</span>
+                <span>
+                  SDaaS (Satellite Data as a Service): Provision of Satellite
+                  data solutions to end-users
+                </span>
               </li>
               <li className="flex items-start">
                 <span className="text-cyan-400 mr-2">▸</span>
-                <span>Integrated multi-domain surveillance solutions</span>
+                <span>
+                  Integrated surveillance solutions (Satellite Imagery Feed
+                  (space), Drone, Imagery feed (Air), CCTV Imagery live feed
+                  (Ground))
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-cyan-400 mr-2">▸</span>
+                <span>Provision of Coms-on-the-move internet solution</span>
               </li>
             </ul>
           </div>
