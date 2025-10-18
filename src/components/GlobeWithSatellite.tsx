@@ -5,10 +5,9 @@ import { satellites } from "@/data/satellite";
 import * as THREE from "three";
 import Satellite from "./Satellite";
 
-// Extend for BufferGeometry if needed, but not necessary here
 extend({ BufferGeometry: THREE.BufferGeometry });
 
-// Simple Earth texture URL (you can replace with a higher-res one)
+// Simple Earth texture URL
 const EARTH_TEXTURE =
   "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg";
 
