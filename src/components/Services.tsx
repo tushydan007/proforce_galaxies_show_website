@@ -223,10 +223,7 @@ const ServicesPage = () => {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            Our{" "}
-            <span className="text-cyan-400">
-              Services
-            </span>
+            Our <span className="text-cyan-400">Services</span>
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
