@@ -49,6 +49,7 @@ const Navbar = () => {
   const navLinks = [
     {
       name: "Products",
+      path: "/products",
       submenu: [
         {
           name: "Satellites",
