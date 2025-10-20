@@ -477,24 +477,17 @@ const AboutPage = () => {
             const finalValue = parseInt(
               (el as Element).textContent?.slice(0, -1) || "0"
             );
-            gsap.fromTo(
-              el,
-              { textContent: 0 },
-              {
-                textContent: finalValue,
-                duration: 1.5,
-                ease: "power2.out",
-                snap: { textContent: 1 },
-                stagger: {
-                  amount: 0.5,
-                  from: "start",
-                },
-                modifiers: {
-                  textContent: (v) => Math.round(parseFloat(v)) + "+",
-                },
+            // animate the number using a proxy object and update the element in onUpdate
+            const num = { val: 0 };
+            gsap.to(num, {
+              val: finalValue,
+              duration: 1.5,
+              ease: "power2.out",
+              snap: { val: 1 },
+              onUpdate: function () {
+                (el as Element).textContent = Math.round(num.val) + "+";
               },
-              "-=0.5"
-            );
+            });
           });
         },
       },
@@ -848,7 +841,7 @@ const AboutPage = () => {
       {/* Vision & Mission */}
       <div className="max-w-7xl mx-auto px-4 py-20">
         <div className="vision-mission-grid grid md:grid-cols-2 gap-8 mb-20">
-          <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-3xl p-8 md:p-12 border border-cyan-500/20 backdrop-blur-sm">
+          <div className="flex justify-center flex-col bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-3xl p-8 md:p-12 border border-cyan-500/20 backdrop-blur-sm">
             <div className="flex items-center mb-6">
               <Zap className="w-10 h-10 text-cyan-400 mr-4" />
               <h2 className="text-3xl md:text-4xl font-bold text-white">
