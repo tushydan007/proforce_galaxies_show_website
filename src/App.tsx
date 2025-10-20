@@ -1,16 +1,23 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import HomePage from "./components/Home";
-import AboutPage from "./components/About";
-import ServicesPage from "./components/Services";
-import ProductsPage from "./components/Products";
-import TechnologyPage from "./components/Technology";
-import ContactPage from "./components/Contact";
+import HomePage from "@/pages/Home";
+import AboutPage from "@/pages/About";
+import ServicesPage from "@/pages/Services";
+// import SolutionsPage from "@/pages/Solutions";
+import TechnologyPage from "@/pages/Technology";
+import ProductDetailPage from "@/pages/ProductDetail";
+import NewsMedia from "@/pages/NewsAndMedia";
+import ContactPage from "@/pages/Contact";
+
 import ScrollToTop from "./components/ScrollToTop";
 
 import { Route, Routes } from "react-router-dom";
-import ProductDetailPage from "./components/ProductDetail";
-import NewsMedia from "./components/NewsMedia";
+import Cubesat from "./pages/NavLinks/Cubesat";
+import Optical from "./pages/NavLinks/Optical";
+import Sar from "./pages/NavLinks/Sar";
+import FixedGroundStation from "./pages/NavLinks/FixedGroundStation";
+import MobileGroundStation from "./pages/NavLinks/MobileGroundStation";
+import TransportableGroundStation from "./pages/NavLinks/TransportableGroundStation";
 
 const App = () => {
   return (
@@ -22,7 +29,22 @@ const App = () => {
           <Route path="/news-media" element={<NewsMedia />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<ServicesPage />} />
-          <Route path="/products" element={<ProductsPage />} />
+          {/* <Route path="/products" element={<SolutionsPage />} /> */}
+          <Route path="/products/satellites/cubesat" element={<Cubesat />} />
+          <Route path="/products/satellites/optical" element={<Optical />} />
+          <Route path="/products/satellites/sar" element={<Sar />} />
+          <Route
+            path="/products/ground-station/fixed"
+            element={<FixedGroundStation />}
+          />
+          <Route
+            path="/products/ground-station/mobile"
+            element={<MobileGroundStation />}
+          />
+          <Route
+            path="/products/ground-station/transportable"
+            element={<TransportableGroundStation />}
+          />
           <Route path="/products/:productId" element={<ProductDetailPage />} />
           <Route path="/technology" element={<TechnologyPage />} />
           <Route path="/contact" element={<ContactPage />} />

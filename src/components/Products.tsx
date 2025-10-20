@@ -18,7 +18,7 @@ const categories = [
   "Urban planning",
 ];
 
-const ProductsPage = () => {
+const SolutionsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [loading, setLoading] = useState(true);
 
@@ -156,4 +156,4 @@ const ProductsPage = () => {
   );
 };
 
-export default ProductsPage;
+export default SolutionsPage;

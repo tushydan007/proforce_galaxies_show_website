@@ -77,7 +77,7 @@ const Navbar = () => {
         },
       ],
     },
-    { name: "Solutions", path: "/products" },
+    // { name: "Solutions", path: "/products" },
     { name: "Services", path: "/services" },
     { name: "Technology", path: "/technology" },
     { name: "About", path: "/about" },
