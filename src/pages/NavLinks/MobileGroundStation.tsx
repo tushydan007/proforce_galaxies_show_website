@@ -1,4 +1,388 @@
-// src/pages/products/ground-station/MobileGroundStation.jsx
+// import { useState, type JSX } from "react";
+// import {
+//   Truck,
+//   Zap,
+//   Shield,
+//   MapPin,
+//   Download,
+//   ChevronRight,
+//   Play,
+//   Clock,
+//   Battery,
+//   Globe,
+// } from "lucide-react";
+
+// interface Specification {
+//   label: string;
+//   value: string;
+// }
+
+// interface Feature {
+//   icon: JSX.Element;
+//   title: string;
+//   description: string;
+// }
+
+// interface Application {
+//   title: string;
+//   description: string;
+//   image: string;
+// }
+
+// const MobileGroundStationPage = () => {
+//   const [activeTab, setActiveTab] = useState<
+//     "overview" | "specs" | "applications"
+//   >("overview");
+//   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
+//   const specifications: Specification[] = [
+//     { label: "Antenna Size", value: "2.4m - 4.5m" },
+//     { label: "Vehicle Type", value: "Truck-mounted" },
+//     { label: "Setup Time", value: "< 30 minutes" },
+//     { label: "Frequency Bands", value: "S, X, Ka" },
+//     { label: "Data Rate", value: "Up to 2 Gbps" },
+//     { label: "Power Source", value: "Integrated Generator" },
+//     { label: "Operating Range", value: "Global" },
+//     { label: "Crew Required", value: "2-3 personnel" },
+//   ];
+
+//   const features: Feature[] = [
+//     {
+//       icon: <Truck className="w-6 h-6" />,
+//       title: "Rapid Deployment",
+//       description:
+//         "Fully integrated system ready for operation within 30 minutes. Drive to location, deploy, and start tracking.",
+//     },
+//     {
+//       icon: <MapPin className="w-6 h-6" />,
+//       title: "Geographic Flexibility",
+//       description:
+//         "Operate from any location with road access. Perfect for temporary missions, emergency response, and remote operations.",
+//     },
+//     {
+//       icon: <Battery className="w-6 h-6" />,
+//       title: "Self-Sufficient",
+//       description:
+//         "Integrated power generation, climate control, and operator workspace. Fully autonomous operation capability.",
+//     },
+//     {
+//       icon: <Shield className="w-6 h-6" />,
+//       title: "Rugged Design",
+//       description:
+//         "Military-grade construction withstanding extreme weather and terrain. Reliable performance in any environment.",
+//     },
+//   ];
+
+//   const applications: Application[] = [
+//     {
+//       title: "Emergency Response",
+//       description:
+//         "Rapid deployment for disaster recovery, search and rescue coordination, and emergency communications.",
+//       image:
+//         "https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=800&h=600&fit=crop",
+//     },
+//     {
+//       title: "Military Operations",
+//       description:
+//         "Tactical satellite communications, reconnaissance support, and secure data links for field operations.",
+//       image:
+//         "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop",
+//     },
+//     {
+//       title: "Scientific Expeditions",
+//       description:
+//         "Remote research support, real-time data transmission, and communications for field teams worldwide.",
+//       image:
+//         "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&h=600&fit=crop",
+//     },
+//   ];
+
+//   const downloadSpecs = () => {
+//     const specsText = specifications
+//       .map((spec) => `${spec.label}: ${spec.value}`)
+//       .join("\n");
+//     const blob = new Blob(
+//       [
+//         `Mobile Ground Station Specifications\n\n${specsText}\n\nGenerated on October 21, 2025`,
+//       ],
+//       { type: "text/plain" }
+//     );
+//     const url = URL.createObjectURL(blob);
+//     const a = document.createElement("a");
+//     a.href = url;
+//     a.download = "mobile_ground_station_specifications.txt";
+//     a.click();
+//     URL.revokeObjectURL(url);
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-orange-950 to-slate-900">
+//       {/* Hero Section */}
+//       <section className="relative h-screen flex items-center justify-center overflow-hidden">
+//         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/50 to-slate-900 z-10"></div>
+//         <img
+//           src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1920&h=1080&fit=crop"
+//           alt="Mobile Ground Station"
+//           className="absolute inset-0 w-full h-full object-cover"
+//         />
+//         <div className="relative z-20 text-center px-4 max-w-5xl mx-auto">
+//           <div className="flex justify-center mb-6">
+//             <Truck className="w-16 h-16 text-orange-400 animate-bounce" />
+//           </div>
+//           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
+//             Mobile <span className="text-orange-400">Ground Station</span>
+//           </h1>
+//           <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+//             Fully integrated, vehicle-mounted satellite communications platform
+//             for rapid deployment anywhere in the world
+//           </p>
+//           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+//             <button className="bg-orange-500 cursor-pointer hover:bg-orange-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
+//               Request Quote <ChevronRight className="w-5 h-5" />
+//             </button>
+//             <button
+//               onClick={downloadSpecs}
+//               className="cursor-pointer border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 flex items-center justify-center gap-2"
+//             >
+//               <Download className="w-5 h-5" /> Download Specs
+//             </button>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Video Section */}
+//       <section className="py-20 px-4">
+//         <div className="max-w-6xl mx-auto">
+//           <h2 className="text-4xl font-bold text-white text-center mb-12">
+//             Deployment <span className="text-orange-400">in Action</span>
+//           </h2>
+//           <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-orange-500/20">
+//             <div className="relative aspect-video bg-slate-800">
+//               {!isVideoPlaying ? (
+//                 <>
+//                   <img
+//                     src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1920&h=1080&fit=crop"
+//                     alt="Mobile Station Deployment"
+//                     className="w-full h-full object-cover"
+//                   />
+//                   <button
+//                     onClick={() => setIsVideoPlaying(true)}
+//                     className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/30 transition-all duration-300 group"
+//                   >
+//                     <div className="bg-orange-500 rounded-full p-6 transform group-hover:scale-110 transition-transform duration-300">
+//                       <Play className="w-12 h-12 text-white" fill="white" />
+//                     </div>
+//                   </button>
+//                 </>
+//               ) : (
+//                 <iframe
+//                   src="https://www.youtube.com/embed/8P8UKBAOfGo"
+//                   className="w-full h-full"
+//                   title="Mobile Ground Station"
+//                   frameBorder="0"
+//                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+//                   allowFullScreen
+//                 ></iframe>
+//               )}
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Stats Section */}
+//       <section className="py-16 px-4 bg-slate-800/30">
+//         <div className="max-w-6xl mx-auto">
+//           <div className="grid md:grid-cols-4 gap-8">
+//             {[
+//               {
+//                 icon: <Clock className="w-8 h-8" />,
+//                 value: "< 30min",
+//                 label: "Setup Time",
+//               },
+//               {
+//                 icon: <Zap className="w-8 h-8" />,
+//                 value: "2 Gbps",
+//                 label: "Data Rate",
+//               },
+//               {
+//                 icon: <Globe className="w-8 h-8" />,
+//                 value: "Global",
+//                 label: "Range",
+//               },
+//               {
+//                 icon: <Battery className="w-8 h-8" />,
+//                 value: "48hrs",
+//                 label: "Autonomy",
+//               },
+//             ].map((stat, index) => (
+//               <div
+//                 key={index}
+//                 className="text-center p-6 bg-slate-900/50 rounded-xl border border-orange-500/20 hover:border-orange-500 transition-all duration-300"
+//               >
+//                 <div className="flex justify-center mb-4 text-orange-400">
+//                   {stat.icon}
+//                 </div>
+//                 <div className="text-3xl font-bold text-white mb-2">
+//                   {stat.value}
+//                 </div>
+//                 <div className="text-gray-400">{stat.label}</div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Tabs Section */}
+//       <section className="py-20 px-4">
+//         <div className="max-w-6xl mx-auto">
+//           <div className="flex justify-center gap-4 mb-12 flex-wrap">
+//             {(["overview", "specs", "applications"] as const).map((tab) => (
+//               <button
+//                 key={tab}
+//                 onClick={() => setActiveTab(tab)}
+//                 className={`px-8 py-3 rounded-full font-semibold transition-all duration-300 capitalize ${
+//                   activeTab === tab
+//                     ? "bg-orange-500 text-white shadow-lg shadow-orange-500/50"
+//                     : "bg-slate-800 text-gray-300 hover:bg-slate-700"
+//                 }`}
+//               >
+//                 {tab}
+//               </button>
+//             ))}
+//           </div>
+
+//           {/* Overview Tab */}
+//           {activeTab === "overview" && (
+//             <div className="grid md:grid-cols-2 gap-8 animate-fade-in">
+//               {features.map((feature, index) => (
+//                 <div
+//                   key={index}
+//                   className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700 hover:border-orange-500 transition-all duration-300 hover:transform hover:scale-105"
+//                 >
+//                   <div className="bg-orange-500/10 w-14 h-14 rounded-lg flex items-center justify-center mb-4 text-orange-400">
+//                     {feature.icon}
+//                   </div>
+//                   <h3 className="text-xl font-bold text-white mb-3">
+//                     {feature.title}
+//                   </h3>
+//                   <p className="text-gray-400">{feature.description}</p>
+//                 </div>
+//               ))}
+//             </div>
+//           )}
+
+//           {/* Specifications Tab */}
+//           {activeTab === "specs" && (
+//             <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-slate-700 animate-fade-in">
+//               <div className="grid md:grid-cols-2 gap-6">
+//                 {specifications.map((spec, index) => (
+//                   <div
+//                     key={index}
+//                     className="flex justify-between items-center py-4 border-b border-slate-700"
+//                   >
+//                     <span className="text-gray-400 font-medium">
+//                       {spec.label}
+//                     </span>
+//                     <span className="text-white font-bold">{spec.value}</span>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Applications Tab */}
+//           {activeTab === "applications" && (
+//             <div className="grid md:grid-cols-3 gap-8 animate-fade-in">
+//               {applications.map((app, index) => (
+//                 <div
+//                   key={index}
+//                   className="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 hover:border-orange-500 transition-all duration-300 hover:transform hover:scale-105"
+//                 >
+//                   <div className="relative h-48 overflow-hidden">
+//                     <img
+//                       src={app.image}
+//                       alt={app.title}
+//                       className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
+//                     />
+//                   </div>
+//                   <div className="p-6">
+//                     <h3 className="text-xl font-bold text-white mb-3">
+//                       {app.title}
+//                     </h3>
+//                     <p className="text-gray-400">{app.description}</p>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           )}
+//         </div>
+//       </section>
+
+//       {/* Image Gallery */}
+//       <section className="py-20 px-4 bg-slate-800/30">
+//         <div className="max-w-6xl mx-auto">
+//           <h2 className="text-4xl font-bold text-white text-center mb-12">
+//             System <span className="text-orange-400">Gallery</span>
+//           </h2>
+//           <div className="grid md:grid-cols-3 gap-6">
+//             {[
+//               "https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=800&h=600&fit=crop",
+//               "https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=800&h=600&fit=crop",
+//               "https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=800&h=600&fit=crop",
+//             ].map((img, index) => (
+//               <div
+//                 key={index}
+//                 className="relative h-64 rounded-xl overflow-hidden group"
+//               >
+//                 <img
+//                   src={img}
+//                   alt={`Mobile Station ${index + 1}`}
+//                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+//                 />
+//                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* CTA Section */}
+//       <section className="py-20 px-4">
+//         <div className="max-w-4xl mx-auto text-center">
+//           <h2 className="text-4xl font-bold text-white mb-6">
+//             Need Mobile Satellite Communications?
+//           </h2>
+//           <p className="text-xl text-gray-400 mb-8">
+//             Contact us to learn more about our mobile ground station solutions
+//             and deployment options
+//           </p>
+//           <button className="bg-orange-500 hover:bg-orange-600 text-white px-12 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+//             Schedule Consultation
+//           </button>
+//         </div>
+//       </section>
+
+//       <style>{`
+//         @keyframes fade-in {
+//           from {
+//             opacity: 0;
+//             transform: translateY(20px);
+//           }
+//           to {
+//             opacity: 1;
+//             transform: translateY(0);
+//           }
+//         }
+//         .animate-fade-in {
+//           animation: fade-in 0.6s ease-out forwards;
+//         }
+//       `}</style>
+//     </div>
+//   );
+// };
+
+// export default MobileGroundStationPage;
+
 import { useState, type JSX } from "react";
 import {
   CheckCircle,

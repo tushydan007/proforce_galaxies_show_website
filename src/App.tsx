@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 import HomePage from "@/pages/Home";
 import AboutPage from "@/pages/About";
 import ServicesPage from "@/pages/Services";
-// import SolutionsPage from "@/pages/Solutions";
+import SolutionsPage from "@/pages/Solutions";
 import TechnologyPage from "@/pages/Technology";
 import ProductDetailPage from "@/pages/ProductDetail";
 import NewsMedia from "@/pages/NewsAndMedia";
@@ -29,7 +29,7 @@ const App = () => {
           <Route path="/news-media" element={<NewsMedia />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<ServicesPage />} />
-          {/* <Route path="/products" element={<SolutionsPage />} /> */}
+          <Route path="/products" element={<SolutionsPage />} />
           <Route path="/products/satellites/cubesat" element={<Cubesat />} />
           <Route path="/products/satellites/optical" element={<Optical />} />
           <Route path="/products/satellites/sar" element={<Sar />} />

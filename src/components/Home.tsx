@@ -729,25 +729,25 @@ const HomePage = () => {
           >
             {[
               {
-                value: <span className="hero-stat-value">500</span>,
+                value: <span className="hero-stat-value">500+</span>,
                 label: "Enterprise Projects",
                 icon: <Layers className="hero-stat-icon" />,
                 color: "from-cyan-400 to-blue-500",
               },
               {
-                value: <span className="hero-stat-value">150</span>,
+                value: <span className="hero-stat-value">15+</span>,
                 label: "Countries Covered",
                 icon: <Globe2 className="hero-stat-icon" />,
                 color: "from-blue-500 to-purple-500",
               },
               {
-                value: <span className="hero-stat-value">99.9</span>,
+                value: <span className="hero-stat-value">99.9%</span>,
                 label: "Data Accuracy",
                 icon: <Award className="hero-stat-icon" />,
                 color: "from-purple-500 to-pink-500",
               },
               {
-                value: <span className="hero-stat-value">24</span>,
+                value: <span className="hero-stat-value">24/7</span>,
                 label: "Expert Support",
                 icon: <Users className="hero-stat-icon" />,
                 color: "from-pink-500 to-cyan-400",
@@ -765,7 +765,7 @@ const HomePage = () => {
                   </div>
                 </div>
                 <div className="text-4xl font-bold text-white mb-2">
-                  {stat.value}+
+                  {stat.value}
                 </div>
                 <div className="text-gray-400 text-sm font-medium">
                   {stat.label}
